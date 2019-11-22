@@ -15,10 +15,10 @@
             ctx.drawImage(img, 0, 50);
             // ctx.fillText("11",350,50); //n out
             // ctx.fillText("12",350,620);//n in
-            // ctx.fillText("13",600,300);//w in
-            // ctx.fillText("13",25,300);//w out
+            
+            // // ctx.fillText("13",25,300);//w out
             // ctx.fillText("14",25,380);//e in
-            // ctx.fillText("15",600,380);//e out
+            // // ctx.fillText("15",600,380);//e out
             // ctx.fillText("16",270,620);//s 
             // ctx.fillText("17",270,50);//s in
             }
@@ -27,33 +27,34 @@
                 var ctx = c.getContext("2d");
                 ctx.clearRect(300, 610, 350, 620);
                 var x = document.getElementById("north-in").value;
-                ctx.fillText(x,350,620); //n out
+                ctx.fillText(x,350,620); //n in
 
             }
-            // function southBoundIn() {
-            //     var c = document.getElementById("intersectionCanvas");
-            //     var ctx = c.getContext("2d");
-            //     ctx.clearRect(250, , 350, 38);
-            //     var x = document.getElementById("south-in").value;
-            //     ctx.fillText(x,270,50);//s in
+            function southBoundIn() {
+                var c = document.getElementById("intersectionCanvas");
+                var ctx = c.getContext("2d");
+                ctx.clearRect(250, 40, 50, 12);
+                var x = document.getElementById("south-in").value;
+                ctx.fillText(x,270,50);//s in
 
-            // }
-            // function eastBoundIn() {
-            //     var c = document.getElementById("intersectionCanvas");
-            //     var ctx = c.getContext("2d");
-            //     ctx.clearRect(20, 20, 350, 38);
-            //     var x = document.getElementById("north-in").value;
-            //     ctx.fillText(x,350,50); //n out
+            }
+            function eastBoundIn() {
+                console.log("here");
+                var c = document.getElementById("intersectionCanvas");
+                var ctx = c.getContext("2d");
+                ctx.clearRect(25, 350, 17, 50);
+                var x = document.getElementById("east-in").value;
+                ctx.fillText(x,25,380); //e in
 
-            // }
-            // function westBoundIn() {
-            //     var c = document.getElementById("intersectionCanvas");
-            //     var ctx = c.getContext("2d");
-            //     ctx.clearRect(20, 20, 350, 38);
-            //     var x = document.getElementById("north-in").value;
-            //     ctx.fillText(x,350,50); //n out
+            }
+            function westBoundIn() {
+                var c = document.getElementById("intersectionCanvas");
+                var ctx = c.getContext("2d");
+                ctx.clearRect(600, 275, 20, 50);
+                var x = document.getElementById("west-in").value;
+                ctx.fillText(x,600,300);//w in
 
-            // }
+            }
         </script>
     </head>
     <body>
@@ -141,7 +142,7 @@
                        <p>West Bound Input Fields</p>
                        <div class="row">
                         <div class="col">
-                                <input type="text" id="west-in" placeholder="Vehicle Amount" oninput="BoundIn()">
+                                <input type="text" id="west-in" placeholder="Vehicle Amount" oninput="westBoundIn()">
                                 <input type="text" id="west-straight" placeholder="% bear straight">
                         </div>
                         <div class="col">
