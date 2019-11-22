@@ -1,8 +1,9 @@
 window.onload = function() {
-  var c = document.getElementById("intersectionCanvas");
-  var ctx = c.getContext("2d");
-  var img = document.getElementById("intersectionPic");
-  ctx.drawImage(img, 0, 50);
+  this.draw();
+  //   var c = document.getElementById("intersectionCanvas");
+  //   var ctx = c.getContext("2d");
+  //   var img = document.getElementById("intersectionPic");
+  //   ctx.drawImage(img, 0, 50);
   // ctx.fillText("11",350,50); //n out
   // ctx.fillText("12",350,620);//n in
 
@@ -42,7 +43,51 @@ function westBoundIn() {
   ctx.fillText(x, 600, 300); //w in
 }
 
-function placeBlockage() {}
+function placeBlockage() {
+  let blockSelect = document.getElementById("blockage");
+  let location = blockSelect.options[blockSelect.selectedIndex].value;
+  var c = document.getElementById("intersectionCanvas");
+  var ctx = c.getContext("2d");
+  ctx.fillStyle = "#2e3138";
+  ctx.fillRect(375, 150, 20, 15);
+  ctx.fillRect(240, 500, 20, 15);
+  ctx.fillRect(140, 255, 20, 15);
+  ctx.fillRect(475, 390, 20, 15);
+  if (location == "NB") {
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(375, 150, 20, 15);
+    return;
+  }
+  if (location == "SB") {
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(240, 500, 20, 15);
+    return;
+  }
+  if (location == "WB") {
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(140, 255, 20, 15);
+    return;
+  }
+  if (location == "EB") {
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(475, 390, 20, 15);
+    return;
+  }
+  if (location == "") {
+    ctx.fillStyle = "#2e3138";
+    ctx.fillRect(375, 150, 20, 15);
+    ctx.fillRect(240, 500, 20, 15);
+    ctx.fillRect(140, 255, 20, 15);
+    ctx.fillRect(475, 390, 20, 15);
+    return;
+  }
+}
+function draw() {
+  var c = document.getElementById("intersectionCanvas");
+  var ctx = c.getContext("2d");
+  var img = document.getElementById("intersectionPic");
+  ctx.drawImage(img, 0, 50);
+}
 function collectAllinputs() {
   //collect feature inputs
   let weatherSelect = document.getElementById("weather");
