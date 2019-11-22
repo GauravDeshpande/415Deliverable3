@@ -5,29 +5,31 @@
         <meta content="text/html; charset=utf-8" http-equiv="content-type">
         <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-        <link rel=stylesheet href="css/pure/style.css">
+        <link rel=stylesheet href="style.css">
         
         <script src="page.js"></script>
     </head>
     <body>
+        
         <div>
-            <div>
-                <h1>415 Traffic Simulator</h1>
-            </div>
-            <div>Weather     
+            <h1>415 Traffic Simulator</h1>
+        </div>
+
+        <div id="conditions">
+            <div id=weatherDiv>Weather     
                 <form id=weather>
                     <input type="radio" id="weather1" name="weather" value="weather1" onchange="onChangeListener()"/><label for="weather1">None</label><br/>
                     <input type="radio" id="weather2" name="weather" value="weather2" onchange="onChangeListener()"/><label for="weather2">Rain</label><br/>
                     <input type="radio" id="weather3" name="weather" value="weather3" onchange="onChangeListener()"/><label for="weather3">Snow</label><br/>
                 </form>                             
             </div>
-			<div>Day     
+			<div id=dayDiv>Day     
                 <form id=day>
                     <input type="radio" id="day1" name="day" value="day1" onchange="onChangeListener()"/><label for="day1">Weekday</label><br/>
                     <input type="radio" id="day2" name="day" value="day2" onchange="onChangeListener()"/><label for="day2">Weekend</label><br/>
                 </form>                             
             </div>
-			<div>Time     
+			<div id="timeDiv">Time     
                 <form id=time>
                     <input type="radio" id="time1" name="time" value="time1" onchange="onChangeListener()"/><label for="time1">Morning</label><br/>
                     <input type="radio" id="time2" name="time" value="time2" onchange="onChangeListener()"/><label for="time2">Midday</label><br/>
@@ -36,7 +38,7 @@
 					<input type="radio" id="time5" name="time" value="time5" onchange="onChangeListener()"/><label for="time5">Overnight</label><br/>
                 </form>                             
             </div>
-			<div>Blockage     
+			<div id='blockageDiv'>Blockage     
                 <form id=blockage>
                     <input type="radio" id="blockage1" name="blockage" value="blockage1" onchange="onChangeListener()"/><label for="blockage1">None</label><br/>
                     <input type="radio" id="blockage2" name="blockage" value="blockage2" onchange="onChangeListener()"/><label for="blockage2">Accident</label><br/>
