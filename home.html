@@ -4,10 +4,25 @@
     <head>
         <meta content="text/html; charset=utf-8" http-equiv="content-type">
         <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel=stylesheet href="style.css">
         
-        <script src="page.js"></script>
+        <script>
+            window.onload = function() {
+            var c = document.getElementById("intersectionCanvas");
+            var ctx = c.getContext("2d");
+            var img = document.getElementById("intersectionPic");
+            ctx.drawImage(img, 0, 50);
+            ctx.fillText("11",350,50); //n out
+            ctx.fillText("12",350,620);//n in
+            ctx.fillText("13",600,300);//w in
+            ctx.fillText("13",25,300);//w out
+            ctx.fillText("14",25,380);//e in
+            ctx.fillText("15",600,380);//e out
+            ctx.fillText("16",270,620);//s out
+            ctx.fillText("17",270,50);//
+            }
+        </script>
     </head>
     <body>
         
@@ -58,10 +73,77 @@
         <div id= 'results'>
             
         </div>
-        <div id="trafficIntersection">
-                <img id="scream" width="500" height="500" src="intersectionCanvas.png" alt="intersection">
+        <div class="container">
+            <div class="row">
+                <div class="col" id="trafficIntersection">
+                    <img id="intersectionPic" style="display:none;"width="500" height="500" src="intersectionCanvas.png" alt="intersection">
+                    <canvas id="intersectionCanvas" width="700" height="700">
+                        Your browser does not support the HTML5 canvas tag.
+                    </canvas>
 
-        </div>
+                </div>
+                <div class="col">
+                        <p>North Bound Input Fields</p>
+                       <div class="row">
+                        <div class="col">
+                                <input type="text" id="north-in" placeholder="Vehicle Amount">
+                                <input type="text" id="north-straight" placeholder="% bear straight">
+                        </div>
+                        <div class="col">
+                                <input type="text" id="north-left" placeholder="% left turns">
+                        </div>
+                       </div>
+                       <hr>
+                       <p>South Bound Input Fields</p>
+                       <div class="row">
+                        <div class="col">
+                                <input type="text" id="south-in" placeholder="Vehicle Amount">
+                                <input type="text" id="south-straight" placeholder="% bear straight">
+                        </div>
+                        <div class="col">
+                                <input type="text" id="south-left" placeholder="% left turns">
+                        </div>
+                       </div>
+                       <hr>
+                       <p>East Bound Input Fields</p>
+                       <div class="row">
+                        <div class="col">
+                                <input type="text" id="east-in" placeholder="Vehicle Amount">
+                                <input type="text" id="east-straight" placeholder="% bear straight">
+                        </div>
+                        <div class="col">
+                                <input type="text" id="east-left" placeholder="% left turns">
+                        </div>
+                       </div>
+                       <hr>
+                       <p>West Bound Input Fields</p>
+                       <div class="row">
+                        <div class="col">
+                                <input type="text" id="west-in" placeholder="Vehicle Amount">
+                                <input type="text" id="west-straight" placeholder="% bear straight">
+                        </div>
+                        <div class="col">
+                                <input type="text" id="west-left" placeholder="% left turns">
+                        </div>
+                       </div>
+                       <hr>
+                       <p>Simulator Values</p>
+                       <div class="row">
+                            
+                        <div class="col">
+                                <input type="text" id="cpc" placeholder="Cars Per Sec">
+                                
+                        </div>
+                        <div class="col">
+                                <input type="text" id="gcl" placeholder="Green Cycle In Sec">
+
+                        </div>
+                       </div>
+                </div>
+            </div>
+            
+
+       </div>
         
     </body>
 </html>
