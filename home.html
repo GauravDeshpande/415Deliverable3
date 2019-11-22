@@ -15,21 +15,24 @@
             <h1>415 Traffic Simulator</h1>
         </div>
 
-        <div id="conditions">
-            <div id=weatherDiv>Weather     
+        <div class="conditions">
+            <div class='roadConditions'> 
+                <label id = "label">Weather</label>   
                 <form id=weather>
                     <input type="radio" id="weather1" name="weather" value="weather1" onchange="onChangeListener()"/><label for="weather1">None</label><br/>
                     <input type="radio" id="weather2" name="weather" value="weather2" onchange="onChangeListener()"/><label for="weather2">Rain</label><br/>
                     <input type="radio" id="weather3" name="weather" value="weather3" onchange="onChangeListener()"/><label for="weather3">Snow</label><br/>
                 </form>                             
             </div>
-			<div id=dayDiv>Day     
+			<div class='roadConditions'>
+                <label id = "label">Day</label>      
                 <form id=day>
                     <input type="radio" id="day1" name="day" value="day1" onchange="onChangeListener()"/><label for="day1">Weekday</label><br/>
                     <input type="radio" id="day2" name="day" value="day2" onchange="onChangeListener()"/><label for="day2">Weekend</label><br/>
                 </form>                             
             </div>
-			<div id="timeDiv">Time     
+			<div class="roadConditions">
+                <label id = "label">Time</label>     
                 <form id=time>
                     <input type="radio" id="time1" name="time" value="time1" onchange="onChangeListener()"/><label for="time1">Morning</label><br/>
                     <input type="radio" id="time2" name="time" value="time2" onchange="onChangeListener()"/><label for="time2">Midday</label><br/>
@@ -38,14 +41,19 @@
 					<input type="radio" id="time5" name="time" value="time5" onchange="onChangeListener()"/><label for="time5">Overnight</label><br/>
                 </form>                             
             </div>
-			<div id='blockageDiv'>Blockage     
+			<div class='roadConditions'>
+                <label id = "label">Blockage</label>        
                 <form id=blockage>
                     <input type="radio" id="blockage1" name="blockage" value="blockage1" onchange="onChangeListener()"/><label for="blockage1">None</label><br/>
                     <input type="radio" id="blockage2" name="blockage" value="blockage2" onchange="onChangeListener()"/><label for="blockage2">Accident</label><br/>
                     <input type="radio" id="blockage3" name="blockage" value="blockage3" onchange="onChangeListener()"/><label for="blockage3">Construction</label><br/>
                 </form>                             
             </div>
-			<input type="submit" value="Submit">
+			
         </div>
+        <div class='submitButton'>
+            <input type="submit" value="Submit">
+        </div>
+        
     </body>
 </html>

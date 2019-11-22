@@ -8,9 +8,52 @@ h1{
 	
 	font-weight:bold;
 	text-align:center;
-	
-	padding-top:5px;
+    padding-top:5px;
+    font-size:3em;
 	
 	
 }
 
+
+.conditions{
+    margin:auto;
+    content: "";
+    display: table;
+    clear: left;
+    
+}
+.roadConditions{
+    padding-left: 2em;   
+    float:left;
+    
+}
+
+.submitButton{
+   text-align: center;
+   margin-top:2em;
+}
+
+#label{
+    font-size:2em;
+    
+}
+
+#weather{
+    margin-top:5px;
+    
+}
+
+#day{
+    margin-top:5px;
+    
+}
+
+#time{
+    margin-top:5px;
+    
+}
+
+#blockage{
+    margin-top:5px;
+    
+}
