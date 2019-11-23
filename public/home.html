@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta
+      name="viewport"
+      id="viewport"
+      content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="Controller.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Traffic Simulator</h1>
+      <div class="row">
+        <div class="col">
+          <h5>Weather</h5>
+          <select id="weather">
+            <option value="None" modifier="0">None</option>
+            <option value="Rain" modifier="0.15">Rain</option>
+            <option value="Snow" modifier="0.25">Snow</option>
+          </select>
+        </div>
+        <div class="col">
+          <h5>Day Type</h5>
+          <select id="day-type">
+            <option value="Weekend" modifier="0">Weekend</option>
+            <option value="Weekday" modifier="0.5">Weekday</option>
+          </select>
+        </div>
+        <div class="col">
+          <h5>Time</h5>
+          <select id="time">
+            <option value="Morning" modifier="0.3">Morning</option>
+            <option value="Midday" modifier="0.1">Midday</option>
+            <option value="Afternoon" modifier="0.2">Afternoon</option>
+            <option value="Evening" modifier="0">Evening</option>
+          </select>
+        </div>
+        <div class="col">
+          <h5>Blockage</h5>
+          <select id="blockage" onchange="placeBlockage()">
+            <option value="">None</option>
+            <option value="NB">NB out</option>
+            <option value="SB">SB out</option>
+            <option value="EB">EB out</option>
+            <option value="WB">WB out</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="container">
+      <div class="row">
+        <div class="col" id="trafficIntersection">
+          <div id="spinner" class="loader" style="visibility:hidden;"></div>
+          <div id="cycle" style="visibility:hidden;">Some text</div>
+          <img
+            id="intersectionPic"
+            style="display:none;"
+            width="500"
+            height="500"
+            src="intersectionCanvas.png"
+            alt="intersection"
+          />
+          <canvas id="intersectionCanvas" width="700" height="700">
+            Your browser does not support the HTML5 canvas tag.
+          </canvas>
+        </div>
+        <div class="col">
+          <p>North Bound Input Fields</p>
+          <div class="row">
+            <div class="col">
+              <input
+                type="text"
+                id="north-in"
+                placeholder="Vehicle Amount"
+                oninput="northBoundIn()"
+              />
+              <input
+                type="text"
+                id="north-straight"
+                placeholder="% bear straight"
+              />
+            </div>
+            <div class="col">
+              <input type="text" id="north-left" placeholder="% left turns" />
+            </div>
+          </div>
+          <hr />
+          <p>South Bound Input Fields</p>
+          <div class="row">
+            <div class="col">
+              <input
+                type="text"
+                id="south-in"
+                placeholder="Vehicle Amount"
+                oninput="southBoundIn()"
+              />
+              <input
+                type="text"
+                id="south-straight"
+                placeholder="% bear straight"
+              />
+            </div>
+            <div class="col">
+              <input type="text" id="south-left" placeholder="% left turns" />
+            </div>
+          </div>
+          <hr />
+          <p>East Bound Input Fields</p>
+          <div class="row">
+            <div class="col">
+              <input
+                type="text"
+                id="east-in"
+                placeholder="Vehicle Amount"
+                oninput="eastBoundIn()"
+              />
+              <input
+                type="text"
+                id="east-straight"
+                placeholder="% bear straight"
+              />
+            </div>
+            <div class="col">
+              <input type="text" id="east-left" placeholder="% left turns" />
+            </div>
+          </div>
+          <hr />
+          <p>West Bound Input Fields</p>
+          <div class="row">
+            <div class="col">
+              <input
+                type="text"
+                id="west-in"
+                placeholder="Vehicle Amount"
+                oninput="westBoundIn()"
+              />
+              <input
+                type="text"
+                id="west-straight"
+                placeholder="% bear straight"
+              />
+            </div>
+            <div class="col">
+              <input type="text" id="west-left" placeholder="% left turns" />
+            </div>
+          </div>
+          <hr />
+          <p>Simulator Values</p>
+          <div class="row">
+            <div class="col">
+              <input type="text" id="cpc" placeholder="Cars Per Sec" />
+              <input
+                type="text"
+                id="lt_len"
+                placeholder="Left Turn Arrow In Sec"
+              />
+            </div>
+            <div class="col">
+              <input type="text" id="gcl" placeholder="Green Cycle In Sec" />
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <button onclick="collectAllinputs()">Run Simulation</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

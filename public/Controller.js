@@ -123,6 +123,7 @@ function collectAllinputs() {
 
   let cpc = document.getElementById("cpc").value;
   let gcl = document.getElementById("gcl").value;
+  let lal = document.getElementById("lt_len").value;
 
   modelInputObj = {
     weather: weatherValue,
@@ -134,28 +135,115 @@ function collectAllinputs() {
     EB: { in: EB_in, straight: EB_s, left: EB_l },
     WB: { in: WB_in, straight: WB_s, left: WB_l },
     cpc: cpc,
-    gcl: gcl
+    gcl: gcl,
+    lal: lal
   };
-  console.log(modelInputObj);
-  document.getElementById("spinner").style.visibility = "visible";
-  document.getElementById("cycle").style.visibility = "visible";
-  document.getElementById("cycle").innerHTML =
-    "simulating North/South Cycle for " + gcl + " seconds";
-  setTimeout(function() {
-    document.getElementById("spinner").style.visibility = "hidden";
-    document.getElementById("cycle").innerHTML = "Some Text";
-    document.getElementById("cycle").style.visibility = "hidden";
-  }, 3000);
+  //   console.log(modelInputObj);
+  //   document.getElementById("spinner").style.visibility = "visible";
+  //   document.getElementById("cycle").style.visibility = "visible";
+  //   document.getElementById("cycle").innerHTML =
+  //     "simulating North/South Cycle for " + gcl + " seconds";
+  //   setTimeout(function() {
+  //     document.getElementById("spinner").style.visibility = "hidden";
+  //     document.getElementById("cycle").innerHTML = "Some Text";
+  //     document.getElementById("cycle").style.visibility = "hidden";
+  //   }, 3000);
+  retrieveNorthSouthCylce(modelInputObj);
 }
 
-function retrieveModelOutput(obj) {
-  let hyperRateModifier = obj.weatherValue;
+function retrieveNorthSouthCylce(obj) {
+  NorthSouthCycleOutput = {
+    NB_out: "",
+    NB_in: "",
+    SB_out: "",
+    SB_in: "",
+    WB_out: "",
+    EB_out: ""
+  };
+  let NBstraight;
+  let NBleft;
+  let SBstraight;
+  let SBleft;
+
+  //build north bound inputs
+  if (obj.blockageValue == "NB") {
+    NBstraight = {
+      carsPerSec: obj.cpc + obj.blockageValue,
+      hyperRate: obj.day + obj.time,
+      carInputAmount: obj.NB.in * 0.01 * obj.NB.straight,
+      greenCycleLength: obj.gcl
+    };
+  } else {
+    NBstraight = {
+      carsPerSec: obj.cpc,
+      hyperRate: obj.day + obj.time,
+      carInputAmount: obj.NB.in * 0.01 * obj.NB.straight,
+      greenCycleLength: obj.gcl
+    };
+  }
+  NBleft = {
+    carsPerSec: obj.cpc,
+    hyperRate: obj.day + obj.time,
+    carInputAmount: obj.NB.in * 0.01 * obj.NB.left,
+    greenCycleLength: obj.lal
+  };
+  //build south bound inputs
+  if (obj.blockageValue == "SB") {
+    SBstraight = {
+      carsPerSec: obj.cpc + obj.blockageValue,
+      hyperRate: obj.day + obj.time,
+      carInputAmount: obj.SB.in * 0.01 * obj.SB.straight,
+      greenCycleLength: obj.gcl
+    };
+  } else {
+    SBstraight = {
+      carsPerSec: obj.cpc,
+      hyperRate: obj.day + obj.time,
+      carInputAmount: obj.SB.in * 0.01 * obj.SB.straight,
+      greenCycleLength: obj.gcl
+    };
+  }
+  SBleft = {
+    carsPerSec: obj.cpc,
+    hyperRate: obj.day + obj.time,
+    carInputAmount: obj.SB.in * 0.01 * obj.SB.left,
+    greenCycleLength: obj.lal
+  };
+  fetchData(NBstraight)
+    .then(function(res) {
+      console.log(res);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  fetchData(NBleft)
+    .then(function(res) {
+      console.log(res);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  fetchData(SBstraight)
+    .then(function(res) {
+      console.log(res);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  fetchData(SBleft)
+    .then(function(res) {
+      console.log(res);
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
 }
-var obj = {
-  carsPerSec: 5,
-  hyperRate: 0.4,
-  greenCycleLength: 20,
-  carInputAmount: 100,
-  leftPercent: 0.2,
-  straightPercent: 0.8
-};
+async function fetchData(obj) {
+  var response = await fetch("http://localhost:3000/simulate", {
+    method: "POST",
+    headers: new Headers({ "content-type": "application/json" }),
+    body: JSON.stringify(obj)
+  });
+  var data = await response.json();
+  return data;
+}

@@ -1,0 +1,77 @@
+body {
+  font-family: Ariel, Helvetica, sans-serif;
+}
+
+h1 {
+  font-weight: bold;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 3em;
+}
+
+.conditions {
+  margin: auto;
+  content: "";
+  display: table;
+  clear: left;
+}
+.roadConditions {
+  padding-left: 2em;
+  float: left;
+}
+
+.submitButton {
+  text-align: center;
+  margin-top: 2em;
+}
+
+#label {
+  font-size: 2em;
+}
+
+#weather {
+  margin-top: 5px;
+}
+
+#day {
+  margin-top: 5px;
+}
+
+#time {
+  margin-top: 5px;
+}
+
+#blockage {
+  margin-top: 5px;
+}
+
+.loader {
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid blue;
+  border-right: 10px solid green;
+  border-bottom: 10px solid red;
+  border-left: 10px solid pink;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
