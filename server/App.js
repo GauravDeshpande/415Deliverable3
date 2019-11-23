@@ -10,4 +10,4 @@ app.use("/", express.static("../public"));
 app.post("/simulate", function(req, res) {
   res.send({ data: Engine(req.body) });
 });
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`listening on port ${port}!`));
