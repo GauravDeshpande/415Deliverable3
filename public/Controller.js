@@ -15,7 +15,7 @@ function northBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(350, 610, 50, 17);
-    ctx.fillText(value, 350, 620); //n in
+    ctx.fillText(Math.round(value), 350, 620); //n in
   } else {
     console.log("from dom values");
     var c = document.getElementById("intersectionCanvas");
@@ -30,7 +30,7 @@ function southBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(250, 40, 50, 12);
-    ctx.fillText(value + SB_IN, 270, 50); //s in
+    ctx.fillText(Math.round(value) + SB_IN, 270, 50); //s in
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -44,7 +44,7 @@ function eastBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(25, 350, 17, 50);
-    ctx.fillText(value + EB_IN, 25, 380); //e in
+    ctx.fillText(Math.round(value) + EB_IN, 25, 380); //e in
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -58,7 +58,7 @@ function westBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(600, 275, 20, 50);
-    ctx.fillText(value + WB_IN, 600, 300); //w in
+    ctx.fillText(Math.round(value) + WB_IN, 600, 300); //w in
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -71,25 +71,25 @@ function northBoundOut(value) {
   var c = document.getElementById("intersectionCanvas");
   var ctx = c.getContext("2d");
   ctx.clearRect(340, 38, 50, 20);
-  ctx.fillText(value, 350, 50); //n out
+  ctx.fillText(Math.round(value), 350, 50); //n out
 }
 function eastBoundOut(value) {
   var c = document.getElementById("intersectionCanvas");
   var ctx = c.getContext("2d");
   ctx.clearRect(25, 280, 17, 50);
-  ctx.fillText(value, 25, 300); //e out
+  ctx.fillText(Math.round(value), 25, 300); //e out
 }
 function southBoundOut(value) {
   var c = document.getElementById("intersectionCanvas");
   var ctx = c.getContext("2d");
   ctx.clearRect(260, 610, 50, 20);
-  ctx.fillText(value, 270, 620); //n in
+  ctx.fillText(Math.round(value), 270, 620); //n in
 }
 function westBoundOut(value) {
   var c = document.getElementById("intersectionCanvas");
   var ctx = c.getContext("2d");
   ctx.clearRect(600, 350, 30, 50);
-  ctx.fillText(value, 600, 375); //w out
+  ctx.fillText(Math.round(value), 600, 375); //w out
 }
 function placeBlockage() {
   let blockSelect = document.getElementById("blockage");
@@ -352,8 +352,8 @@ function populateOutPuts(obj) {
     let SB_in = document.getElementById("south-in").value;
     northBoundOut(obj.straight_A.carsThrough);
     southBoundOut(obj.straight_B.carsThrough);
-    eastBoundOut(Math.round(SB_in * SB_right + obj.left_A.carsThrough));
-    westBoundOut(Math.round(NB_in * NB_right + obj.left_B.carsThrough));
+    eastBoundOut(SB_in * SB_right + obj.left_A.carsThrough);
+    westBoundOut(NB_in * NB_right + obj.left_B.carsThrough);
 
     northBoundIn(obj.straight_A.carsStopped + obj.left_A.carsStopped);
     southBoundIn(obj.straight_B.carsStopped + obj.left_B.carsStopped);
@@ -369,16 +369,12 @@ function populateOutPuts(obj) {
     let WB_right = document.getElementById("west-right").value * 0.01;
     let EB_in = document.getElementById("east-in").value;
     let WB_in = document.getElementById("west-in").value;
-    westBoundOut(Math.round(obj.straight_A.carsThrough + WB_OUT));
+    westBoundOut(obj.straight_A.carsThrough + WB_OUT);
     southBoundOut(obj.left_A.carsThrough + EB_right * EB_in + SB_OUT);
-    eastBoundOut(Math.round(obj.straight_B.carsThrough + EB_OUT));
+    eastBoundOut(obj.straight_B.carsThrough + EB_OUT);
     northBoundOut(obj.left_B.carsThrough + WB_right * WB_in + NB_OUT);
-    westBoundIn(
-      Math.round(obj.straight_A.carsStopped + obj.left_A.carsStopped + WB_IN)
-    );
-    eastBoundIn(
-      Math.round(obj.straight_B.carsStopped + obj.left_B.carsStopped + EB_IN)
-    );
+    westBoundIn(obj.straight_A.carsStopped + obj.left_A.carsStopped + WB_IN);
+    eastBoundIn(obj.straight_B.carsStopped + obj.left_B.carsStopped + EB_IN);
     // document.getElementById("form").remove();
   }
 }
