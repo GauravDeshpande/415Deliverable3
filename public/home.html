@@ -74,104 +74,169 @@
             Your browser does not support the HTML5 canvas tag.
           </canvas>
         </div>
-        <div class="col">
-          <p>North Bound Input Fields</p>
-          <div class="row">
-            <div class="col">
-              <input
-                type="text"
-                id="north-in"
-                placeholder="Vehicle Amount"
-                oninput="northBoundIn()"
-              />
-              <input
-                type="text"
-                id="north-straight"
-                placeholder="% bear straight"
-              />
+        <div class="col" id="form-column">
+          <div id="form">
+            <p>North Bound Input Fields</p>
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  id="north-in"
+                  placeholder="Vehicle Amount"
+                  oninput="northBoundIn()"
+                  value="100"
+                />
+                <input
+                  type="text"
+                  id="north-straight"
+                  placeholder="% bear straight"
+                  value="80"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  id="north-left"
+                  value="10"
+                  placeholder="% left turns"
+                />
+                <input
+                  type="text"
+                  id="north-right"
+                  placeholder="% right turns"
+                  value="10"
+                />
+              </div>
             </div>
-            <div class="col">
-              <input type="text" id="north-left" placeholder="% left turns" />
+            <hr />
+            <p>South Bound Input Fields</p>
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  id="south-in"
+                  placeholder="Vehicle Amount"
+                  oninput="southBoundIn()"
+                  value="100"
+                />
+                <input
+                  type="text"
+                  id="south-straight"
+                  placeholder="% bear straight"
+                  value="80"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  id="south-left"
+                  value="10"
+                  placeholder="% left turns"
+                />
+                <input
+                  type="text"
+                  id="south-right"
+                  placeholder="% right turns"
+                  value="10"
+                />
+              </div>
             </div>
-          </div>
-          <hr />
-          <p>South Bound Input Fields</p>
-          <div class="row">
-            <div class="col">
-              <input
-                type="text"
-                id="south-in"
-                placeholder="Vehicle Amount"
-                oninput="southBoundIn()"
-              />
-              <input
-                type="text"
-                id="south-straight"
-                placeholder="% bear straight"
-              />
+            <hr />
+            <p>East Bound Input Fields</p>
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  id="east-in"
+                  placeholder="Vehicle Amount"
+                  oninput="eastBoundIn()"
+                  value="100"
+                />
+                <input
+                  type="text"
+                  id="east-straight"
+                  placeholder="% bear straight"
+                  value="80"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  id="east-left"
+                  placeholder="% left turns"
+                  value="10"
+                />
+                <input
+                  type="text"
+                  id="east-right"
+                  placeholder="% right turns"
+                  value="10"
+                />
+              </div>
             </div>
-            <div class="col">
-              <input type="text" id="south-left" placeholder="% left turns" />
+            <hr />
+            <p>West Bound Input Fields</p>
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  id="west-in"
+                  placeholder="Vehicle Amount"
+                  oninput="westBoundIn()"
+                  value="100"
+                />
+                <input
+                  type="text"
+                  id="west-straight"
+                  placeholder="% bear straight"
+                  value="80"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  id="west-left"
+                  placeholder="% left turns"
+                  value="10"
+                />
+                <input
+                  type="text"
+                  id="west-right"
+                  placeholder="% right turns"
+                  value="10"
+                />
+              </div>
             </div>
-          </div>
-          <hr />
-          <p>East Bound Input Fields</p>
-          <div class="row">
-            <div class="col">
-              <input
-                type="text"
-                id="east-in"
-                placeholder="Vehicle Amount"
-                oninput="eastBoundIn()"
-              />
-              <input
-                type="text"
-                id="east-straight"
-                placeholder="% bear straight"
-              />
+            <hr />
+            <p>Simulator Values</p>
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  id="cpc"
+                  value="6"
+                  placeholder="Cars Per Sec"
+                />
+                <input
+                  type="text"
+                  id="lt_len"
+                  placeholder="Left Turn Arrow In Sec"
+                  value="10"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  id="gcl"
+                  value="20"
+                  placeholder="Green Cycle In Sec"
+                />
+              </div>
             </div>
-            <div class="col">
-              <input type="text" id="east-left" placeholder="% left turns" />
+            <hr />
+            <div class="row">
+              <button onclick="collectAllinputs()">Run Simulation</button>
             </div>
-          </div>
-          <hr />
-          <p>West Bound Input Fields</p>
-          <div class="row">
-            <div class="col">
-              <input
-                type="text"
-                id="west-in"
-                placeholder="Vehicle Amount"
-                oninput="westBoundIn()"
-              />
-              <input
-                type="text"
-                id="west-straight"
-                placeholder="% bear straight"
-              />
-            </div>
-            <div class="col">
-              <input type="text" id="west-left" placeholder="% left turns" />
-            </div>
-          </div>
-          <hr />
-          <p>Simulator Values</p>
-          <div class="row">
-            <div class="col">
-              <input type="text" id="cpc" placeholder="Cars Per Sec" />
-              <input
-                type="text"
-                id="lt_len"
-                placeholder="Left Turn Arrow In Sec"
-              />
-            </div>
-            <div class="col">
-              <input type="text" id="gcl" placeholder="Green Cycle In Sec" />
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <button onclick="collectAllinputs()">Run Simulation</button>
           </div>
         </div>
       </div>
