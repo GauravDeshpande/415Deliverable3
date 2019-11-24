@@ -8,6 +8,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/", express.static("../public"));
 app.post("/simulate", function(req, res) {
-  res.send({ data: Engine(req.body) });
+  if (req.body.cycle === "N_S") {
+    res.send({
+      cycle: req.body.cycle,
+      straight_A: Engine(req.body.NBstraight),
+      left_A: Engine(req.body.NBleft),
+      straight_B: Engine(req.body.SBstraight),
+      left_B: Engine(req.body.SBleft)
+    });
+  } else {
+    console.log(req.body);
+    res.send({
+      cycle: req.body.cycle,
+      straight_A: Engine(req.body.WBstraight),
+      left_A: Engine(req.body.WBleft),
+      straight_B: Engine(req.body.EBstraight),
+      left_B: Engine(req.body.EBleft)
+    });
+  }
 });
 app.listen(port, () => console.log(`listening on port ${port}!`));

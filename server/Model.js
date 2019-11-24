@@ -5,10 +5,10 @@ function simulatorEngine(data) {
   let c_p_s = data.carsPerSec;
   let h_r = baseHyperRate - data.hyperRate;
   let g_c_l = data.greenCycleLength;
-  let totalOutput = Math.round(c_p_s * (1 / h_r) * Math.log(cosh(h_r * g_c_l)));
+  let totalOutput = Math.ceil(c_p_s * (1 / h_r) * Math.log(cosh(h_r * g_c_l)));
   //build model output
-  let carsLeftOver = Math.round(data.carInputAmount - totalOutput);
-  let carsWentThrough = Math.round(totalOutput);
+  let carsLeftOver = data.carInputAmount - totalOutput;
+  let carsWentThrough = totalOutput;
   let finalOut = {
     carsThrough:
       carsWentThrough > data.carInputAmount
@@ -21,10 +21,10 @@ function simulatorEngine(data) {
 module.exports = {
   simulatorEngine: simulatorEngine
 };
-// var obj = {
-//   carsPerSec: 5,
-//   hyperRate: 0.4,
-//   greenCycleLength: 20,
-//   carInputAmount: 100
-// };
-// console.log(simulatorEngine(obj));
+var obj = {
+  carsPerSec: 5,
+  hyperRate: 0.3,
+  greenCycleLength: 10,
+  carInputAmount: 40
+};
+console.log(simulatorEngine(obj));
