@@ -211,9 +211,30 @@ function collectAllinputs() {
     gcl: gcl,
     lal: lal
   };
-  console.log(modelInputObj);
-  retrieveNorthSouthCylce(modelInputObj);
-  retrieveEastWestCylce(modelInputObj);
+  // console.log(modelInputObj);
+  // retrieveNorthSouthCylce(modelInputObj);
+  // retrieveEastWestCylce(modelInputObj);
+  document.getElementById("spinner").style.visibility = "visible";
+  document.getElementById("cycle").style.visibility = "visible";
+  document.getElementById("cycle").innerHTML =
+    "simulating North/South Cycle for " + gcl + " seconds";
+  setTimeout(function() {
+    document.getElementById("spinner").style.visibility = "hidden";
+    document.getElementById("cycle").innerHTML = "Some Text";
+    document.getElementById("cycle").style.visibility = "hidden";
+    retrieveNorthSouthCylce(modelInputObj);
+
+    document.getElementById("spinner").style.visibility = "visible";
+    document.getElementById("cycle").style.visibility = "visible";
+    document.getElementById("cycle").innerHTML =
+      "simulating East/West Cycle for " + gcl + " seconds";
+    setTimeout(function() {
+      document.getElementById("spinner").style.visibility = "hidden";
+      document.getElementById("cycle").innerHTML = "Some Text";
+      document.getElementById("cycle").style.visibility = "hidden";
+      retrieveEastWestCylce(modelInputObj);
+    }, 3000);
+  }, 3000);
 }
 
 function retrieveNorthSouthCylce(obj) {
