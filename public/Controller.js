@@ -15,7 +15,7 @@ function northBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(350, 610, 50, 17);
-    ctx.fillText(Math.round(value), 350, 620); //n in
+    ctx.fillText(value, 350, 620); //n in
   } else {
     console.log("from dom values");
     var c = document.getElementById("intersectionCanvas");
@@ -30,7 +30,7 @@ function southBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(250, 40, 50, 12);
-    ctx.fillText(Math.round(value) + SB_IN, 270, 50); //s in
+    ctx.fillText(value + SB_IN, 270, 50); //s in
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -44,7 +44,7 @@ function eastBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(25, 350, 17, 50);
-    ctx.fillText(Math.round(value) + EB_IN, 25, 380); //e in
+    ctx.fillText(value + EB_IN, 25, 380); //e in
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -58,7 +58,7 @@ function westBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(600, 275, 20, 50);
-    ctx.fillText(Math.round(value) + WB_IN, 600, 300); //w in
+    ctx.fillText(value + WB_IN, 600, 300); //w in
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -71,25 +71,25 @@ function northBoundOut(value) {
   var c = document.getElementById("intersectionCanvas");
   var ctx = c.getContext("2d");
   ctx.clearRect(340, 38, 50, 20);
-  ctx.fillText(Math.round(value), 350, 50); //n out
+  ctx.fillText(value, 350, 50); //n out
 }
 function eastBoundOut(value) {
   var c = document.getElementById("intersectionCanvas");
   var ctx = c.getContext("2d");
   ctx.clearRect(25, 280, 17, 50);
-  ctx.fillText(Math.round(value), 25, 300); //e out
+  ctx.fillText(value, 25, 300); //e out
 }
 function southBoundOut(value) {
   var c = document.getElementById("intersectionCanvas");
   var ctx = c.getContext("2d");
   ctx.clearRect(260, 610, 50, 20);
-  ctx.fillText(Math.round(value), 270, 620); //n in
+  ctx.fillText(value, 270, 620); //n in
 }
 function westBoundOut(value) {
   var c = document.getElementById("intersectionCanvas");
   var ctx = c.getContext("2d");
   ctx.clearRect(600, 350, 30, 50);
-  ctx.fillText(Math.round(value), 600, 375); //w out
+  ctx.fillText(value, 600, 375); //w out
 }
 function placeBlockage() {
   let blockSelect = document.getElementById("blockage");
@@ -156,18 +156,22 @@ function collectAllinputs() {
   let NB_in = document.getElementById("north-in").value;
   let NB_l = document.getElementById("north-left").value;
   let NB_s = document.getElementById("north-straight").value;
+  let NB_r = document.getElementById("north-right").value;
 
   let SB_in = document.getElementById("south-in").value;
   let SB_l = document.getElementById("south-left").value;
   let SB_s = document.getElementById("south-straight").value;
+  let SB_r = document.getElementById("north-right").value;
 
   let EB_in = document.getElementById("east-in").value;
   let EB_l = document.getElementById("east-left").value;
   let EB_s = document.getElementById("east-straight").value;
+  let EB_r = document.getElementById("east-right").value;
 
   let WB_in = document.getElementById("west-in").value;
   let WB_l = document.getElementById("west-left").value;
   let WB_s = document.getElementById("west-straight").value;
+  let WB_r = document.getElementById("west-right").value;
 
   let cpc = document.getElementById("cpc").value;
   let gcl = document.getElementById("gcl").value;
@@ -178,36 +182,15 @@ function collectAllinputs() {
     day: dayValue,
     time: timeValue,
     blockage: blockageValue,
-    NB: { in: NB_in, straight: NB_s, left: NB_l },
-    SB: { in: SB_in, straight: SB_s, left: SB_l },
-    EB: { in: EB_in, straight: EB_s, left: EB_l },
-    WB: { in: WB_in, straight: WB_s, left: WB_l },
+    NB: { in: NB_in, straight: NB_s, left: NB_l, right: NB_r },
+    SB: { in: SB_in, straight: SB_s, left: SB_l, right: SB_r },
+    EB: { in: EB_in, straight: EB_s, left: EB_l, right: EB_r },
+    WB: { in: WB_in, straight: WB_s, left: WB_l, right: WB_r },
     cpc: cpc,
     gcl: gcl,
     lal: lal
   };
   console.log(modelInputObj);
-  // document.getElementById("spinner").style.visibility = "visible";
-  // document.getElementById("cycle").style.visibility = "visible";
-  // document.getElementById("cycle").innerHTML =
-  //   "simulating North/South Cycle for " + gcl + " seconds";
-  // setTimeout(function() {
-  //   document.getElementById("spinner").style.visibility = "hidden";
-  //   document.getElementById("cycle").innerHTML = "Some Text";
-  //   document.getElementById("cycle").style.visibility = "hidden";
-  //   retrieveNorthSouthCylce(modelInputObj);
-
-  //   document.getElementById("spinner").style.visibility = "visible";
-  //   document.getElementById("cycle").style.visibility = "visible";
-  //   document.getElementById("cycle").innerHTML =
-  //     "simulating East/West Cycle for " + gcl + " seconds";
-  //   setTimeout(function() {
-  //     document.getElementById("spinner").style.visibility = "hidden";
-  //     document.getElementById("cycle").innerHTML = "Some Text";
-  //     document.getElementById("cycle").style.visibility = "hidden";
-  //     retrieveEastWestCylce(modelInputObj);
-  //   }, 3000);
-  // }, 3000);
   retrieveNorthSouthCylce(modelInputObj);
   retrieveEastWestCylce(modelInputObj);
 }
@@ -218,8 +201,10 @@ function retrieveNorthSouthCylce(obj) {
     cycle: "N_S",
     NBstraight: {},
     NBleft: {},
+    NBright: {},
     SBstraight: {},
-    SBleft: {}
+    SBleft: {},
+    SBRight: {}
   };
 
   //build north bound inputs
@@ -232,17 +217,23 @@ function retrieveNorthSouthCylce(obj) {
     };
   } else {
     requestBody.NBstraight = {
-      carsPerSec: obj.cpc,
+      carsPerSec: obj.cpc - obj.weather,
       hyperRate: obj.day + obj.time,
       carInputAmount: obj.NB.in * 0.01 * obj.NB.straight,
       greenCycleLength: obj.gcl
     };
   }
   requestBody.NBleft = {
-    carsPerSec: obj.cpc,
+    carsPerSec: obj.cpc - obj.weather,
     hyperRate: obj.day + obj.time,
     carInputAmount: obj.NB.in * 0.01 * obj.NB.left,
     greenCycleLength: obj.lal
+  };
+  requestBody.NBright = {
+    carsPerSec: obj.cpc - obj.weather,
+    hyperRate: obj.day + obj.time,
+    carInputAmount: obj.NB.in * 0.01 * obj.NB.right,
+    greenCycleLength: obj.gcl
   };
   //build south bound inputs
   if (obj.blockageValue == "SB") {
@@ -254,17 +245,23 @@ function retrieveNorthSouthCylce(obj) {
     };
   } else {
     requestBody.SBstraight = {
-      carsPerSec: obj.cpc,
+      carsPerSec: obj.cpc - obj.weather,
       hyperRate: obj.day + obj.time,
       carInputAmount: obj.SB.in * 0.01 * obj.SB.straight,
       greenCycleLength: obj.gcl
     };
   }
   requestBody.SBleft = {
-    carsPerSec: obj.cpc,
+    carsPerSec: obj.cpc - obj.weather,
     hyperRate: obj.day + obj.time,
     carInputAmount: obj.SB.in * 0.01 * obj.SB.left,
     greenCycleLength: obj.lal
+  };
+  requestBody.SBright = {
+    carsPerSec: obj.cpc,
+    hyperRate: obj.day + obj.time,
+    carInputAmount: obj.SB.in * 0.01 * obj.SB.right,
+    greenCycleLength: obj.gcl
   };
   fetchData(requestBody)
     .then(function(res) {
@@ -282,9 +279,11 @@ function retrieveEastWestCylce(obj) {
   let requestBody = {
     cycle: "E_W",
     EBstraight: {},
-    WBleft: {},
+    EBright: {},
+    EBleft: {},
     WBstraight: {},
-    WBleft: {}
+    WBleft: {},
+    WBright: {}
   };
 
   //build west bound inputs
@@ -297,17 +296,23 @@ function retrieveEastWestCylce(obj) {
     };
   } else {
     requestBody.WBstraight = {
-      carsPerSec: obj.cpc,
+      carsPerSec: obj.cpc - obj.weather,
       hyperRate: obj.day + obj.time,
       carInputAmount: obj.WB.in * 0.01 * obj.WB.straight,
       greenCycleLength: obj.gcl
     };
   }
   requestBody.WBleft = {
-    carsPerSec: obj.cpc,
+    carsPerSec: obj.cpc - obj.weather,
     hyperRate: obj.day + obj.time,
     carInputAmount: obj.WB.in * 0.01 * obj.WB.left,
     greenCycleLength: obj.lal
+  };
+  requestBody.WBright = {
+    carsPerSec: obj.cpc - obj.weather,
+    hyperRate: obj.day + obj.time,
+    carInputAmount: obj.WB.in * 0.01 * obj.WB.right,
+    greenCycleLength: obj.gcl
   };
   //build east bound inputs
   if (obj.blockageValue == "EB") {
@@ -319,19 +324,24 @@ function retrieveEastWestCylce(obj) {
     };
   } else {
     requestBody.EBstraight = {
-      carsPerSec: obj.cpc,
+      carsPerSec: obj.cpc - obj.weather,
       hyperRate: obj.day + obj.time,
       carInputAmount: obj.EB.in * 0.01 * obj.EB.straight,
       greenCycleLength: obj.gcl
     };
   }
   requestBody.EBleft = {
-    carsPerSec: obj.cpc,
+    carsPerSec: obj.cpc - obj.weather,
     hyperRate: obj.day + obj.time,
     carInputAmount: obj.EB.in * 0.01 * obj.EB.left,
     greenCycleLength: obj.lal
   };
-  console.log(requestBody);
+  requestBody.EBright = {
+    carsPerSec: obj.cpc - obj.weather,
+    hyperRate: obj.day + obj.time,
+    carInputAmount: obj.WB.in * 0.01 * obj.EB.right,
+    greenCycleLength: obj.gcl
+  };
   fetchData(requestBody)
     .then(function(res) {
       console.log(res);
@@ -346,35 +356,52 @@ function retrieveEastWestCylce(obj) {
 
 function populateOutPuts(obj) {
   if (obj.cycle === "N_S") {
-    let NB_right = document.getElementById("north-right").value * 0.01;
-    let SB_right = document.getElementById("north-right").value * 0.01;
-    let NB_in = document.getElementById("north-in").value;
-    let SB_in = document.getElementById("south-in").value;
     northBoundOut(obj.straight_A.carsThrough);
     southBoundOut(obj.straight_B.carsThrough);
-    eastBoundOut(SB_in * SB_right + obj.left_A.carsThrough);
-    westBoundOut(NB_in * NB_right + obj.left_B.carsThrough);
-
-    northBoundIn(obj.straight_A.carsStopped + obj.left_A.carsStopped);
-    southBoundIn(obj.straight_B.carsStopped + obj.left_B.carsStopped);
+    eastBoundOut(obj.right_B.carsThrough + obj.left_A.carsThrough);
+    westBoundOut(obj.right_A.carsThrough + obj.left_B.carsThrough);
+    northBoundIn(
+      obj.straight_A.carsStopped +
+        obj.left_A.carsStopped +
+        obj.right_A.carsStopped
+    );
+    southBoundIn(
+      obj.straight_B.carsStopped +
+        obj.left_B.carsStopped +
+        obj.right_B.carsStopped
+    );
     NB_OUT = obj.straight_A.carsThrough;
-    EB_OUT = SB_in * SB_right + obj.left_A.carsThrough;
+    EB_OUT = obj.right_B.carsThrough + obj.left_A.carsThrough;
     SB_OUT = obj.straight_B.carsThrough;
-    WB_OUT = NB_in * NB_right + obj.left_B.carsThrough;
-    NB_IN = obj.straight_A.carsStopped + obj.left_A.carsStopped;
-    SB_IN = obj.straight_A.carsStopped + obj.left_A.carsStopped;
+    WB_OUT = obj.right_A.carsThrough + obj.left_B.carsThrough;
+    NB_IN =
+      obj.straight_A.carsStopped +
+      obj.left_A.carsStopped +
+      obj.right_B.carsStopped;
+    SB_IN =
+      obj.straight_B.carsStopped +
+      obj.left_B.carsStopped +
+      obj.right_B.carsStopped;
+    console.log(NB_OUT + " " + SB_OUT + " " + WB_OUT + " " + EB_OUT);
+    console.log(NB_IN + " " + SB_IN);
   }
   if (obj.cycle == "E_W") {
-    let EB_right = document.getElementById("east-right").value * 0.01;
-    let WB_right = document.getElementById("west-right").value * 0.01;
-    let EB_in = document.getElementById("east-in").value;
-    let WB_in = document.getElementById("west-in").value;
     westBoundOut(obj.straight_A.carsThrough + WB_OUT);
-    southBoundOut(obj.left_A.carsThrough + EB_right * EB_in + SB_OUT);
+    southBoundOut(obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT);
     eastBoundOut(obj.straight_B.carsThrough + EB_OUT);
-    northBoundOut(obj.left_B.carsThrough + WB_right * WB_in + NB_OUT);
-    westBoundIn(obj.straight_A.carsStopped + obj.left_A.carsStopped + WB_IN);
-    eastBoundIn(obj.straight_B.carsStopped + obj.left_B.carsStopped + EB_IN);
+    northBoundOut(obj.right_A.carsThrough + obj.left_B.carsThrough + NB_OUT);
+    westBoundIn(
+      obj.straight_A.carsStopped +
+        obj.left_A.carsStopped +
+        obj.right_A.carsStopped +
+        WB_IN
+    );
+    eastBoundIn(
+      obj.straight_B.carsStopped +
+        obj.left_B.carsStopped +
+        obj.right_B.carsStopped +
+        EB_IN
+    );
     // document.getElementById("form").remove();
   }
 }
@@ -387,3 +414,25 @@ async function fetchData(obj) {
   var data = await response.json();
   return data;
 }
+
+// document.getElementById("spinner").style.visibility = "visible";
+// document.getElementById("cycle").style.visibility = "visible";
+// document.getElementById("cycle").innerHTML =
+//   "simulating North/South Cycle for " + gcl + " seconds";
+// setTimeout(function() {
+//   document.getElementById("spinner").style.visibility = "hidden";
+//   document.getElementById("cycle").innerHTML = "Some Text";
+//   document.getElementById("cycle").style.visibility = "hidden";
+//   retrieveNorthSouthCylce(modelInputObj);
+
+//   document.getElementById("spinner").style.visibility = "visible";
+//   document.getElementById("cycle").style.visibility = "visible";
+//   document.getElementById("cycle").innerHTML =
+//     "simulating East/West Cycle for " + gcl + " seconds";
+//   setTimeout(function() {
+//     document.getElementById("spinner").style.visibility = "hidden";
+//     document.getElementById("cycle").innerHTML = "Some Text";
+//     document.getElementById("cycle").style.visibility = "hidden";
+//     retrieveEastWestCylce(modelInputObj);
+//   }, 3000);
+// }, 3000);

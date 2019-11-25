@@ -14,7 +14,9 @@ app.post("/simulate", function(req, res) {
       straight_A: Engine(req.body.NBstraight),
       left_A: Engine(req.body.NBleft),
       straight_B: Engine(req.body.SBstraight),
-      left_B: Engine(req.body.SBleft)
+      left_B: Engine(req.body.SBleft),
+      right_A: Engine(req.body.NBright),
+      right_B: Engine(req.body.SBright)
     });
   } else {
     console.log(req.body);
@@ -23,7 +25,9 @@ app.post("/simulate", function(req, res) {
       straight_A: Engine(req.body.WBstraight),
       left_A: Engine(req.body.WBleft),
       straight_B: Engine(req.body.EBstraight),
-      left_B: Engine(req.body.EBleft)
+      left_B: Engine(req.body.EBleft),
+      right_A: Engine(req.body.WBright),
+      right_B: Engine(req.body.EBright)
     });
   }
 });
