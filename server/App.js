@@ -19,7 +19,6 @@ app.post("/simulate", function(req, res) {
       right_B: Engine(req.body.SBright)
     });
   } else {
-    console.log(req.body);
     res.send({
       cycle: req.body.cycle,
       straight_A: Engine(req.body.WBstraight),

@@ -15,7 +15,11 @@ function northBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(350, 610, 50, 17);
+    if (value > 0) {
+      ctx.fillStyle = "#FF0000";
+    }
     ctx.fillText(value, 350, 620); //n in
+    ctx.fillStyle = "#050505";
   } else {
     console.log("from dom values");
     var c = document.getElementById("intersectionCanvas");
@@ -30,7 +34,11 @@ function southBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(250, 40, 50, 12);
+    if (value > 0) {
+      ctx.fillStyle = "#FF0000";
+    }
     ctx.fillText(value + SB_IN, 270, 50); //s in
+    ctx.fillStyle = "#050505";
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -44,7 +52,11 @@ function eastBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(25, 350, 17, 50);
+    if (value > 0) {
+      ctx.fillStyle = "#FF0000";
+    }
     ctx.fillText(value + EB_IN, 25, 380); //e in
+    ctx.fillStyle = "#050505";
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -58,7 +70,11 @@ function westBoundIn(value) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(600, 275, 20, 50);
+    if (value > 0) {
+      ctx.fillStyle = "#FF0000";
+    }
     ctx.fillText(value + WB_IN, 600, 300); //w in
+    ctx.fillStyle = "#050505";
   } else {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
@@ -104,21 +120,25 @@ function placeBlockage() {
   if (location == "NB") {
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(375, 150, 20, 15);
+    ctx.fillStyle = "#050505";
     return;
   }
   if (location == "SB") {
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(240, 500, 20, 15);
+    ctx.fillStyle = "#050505";
     return;
   }
   if (location == "WB") {
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(140, 255, 20, 15);
+    ctx.fillStyle = "#050505";
     return;
   }
   if (location == "EB") {
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(475, 390, 20, 15);
+    ctx.fillStyle = "#050505";
     return;
   }
   if (location == "") {
@@ -127,6 +147,7 @@ function placeBlockage() {
     ctx.fillRect(240, 500, 20, 15);
     ctx.fillRect(140, 255, 20, 15);
     ctx.fillRect(475, 390, 20, 15);
+    ctx.fillStyle = "#050505";
     return;
   }
 }
@@ -206,60 +227,59 @@ function retrieveNorthSouthCylce(obj) {
     SBleft: {},
     SBRight: {}
   };
-
   //build north bound inputs
-  if (obj.blockageValue == "NB") {
+  if (obj.blockage == "NB") {
     requestBody.NBstraight = {
-      carsPerSec: obj.cpc + obj.blockageValue,
-      hyperRate: obj.day + obj.time,
+      carsPerSec: obj.cpc - 1 - obj.weather,
+      hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.NB.in * 0.01 * obj.NB.straight,
       greenCycleLength: obj.gcl
     };
   } else {
     requestBody.NBstraight = {
       carsPerSec: obj.cpc - obj.weather,
-      hyperRate: obj.day + obj.time,
+      hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.NB.in * 0.01 * obj.NB.straight,
       greenCycleLength: obj.gcl
     };
   }
   requestBody.NBleft = {
-    carsPerSec: obj.cpc - obj.weather,
-    hyperRate: obj.day + obj.time,
+    carsPerSec: obj.cpc - 1 - obj.weather,
+    hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.NB.in * 0.01 * obj.NB.left,
     greenCycleLength: obj.lal
   };
   requestBody.NBright = {
     carsPerSec: obj.cpc - obj.weather,
-    hyperRate: obj.day + obj.time,
+    hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.NB.in * 0.01 * obj.NB.right,
     greenCycleLength: obj.gcl
   };
   //build south bound inputs
-  if (obj.blockageValue == "SB") {
+  if (obj.blockage == "SB") {
     requestBody.SBstraight = {
-      carsPerSec: obj.cpc + obj.blockageValue,
-      hyperRate: obj.day + obj.time,
+      carsPerSec: obj.cpc - 1 - obj.weather,
+      hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.SB.in * 0.01 * obj.SB.straight,
       greenCycleLength: obj.gcl
     };
   } else {
     requestBody.SBstraight = {
       carsPerSec: obj.cpc - obj.weather,
-      hyperRate: obj.day + obj.time,
+      hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.SB.in * 0.01 * obj.SB.straight,
       greenCycleLength: obj.gcl
     };
   }
   requestBody.SBleft = {
     carsPerSec: obj.cpc - obj.weather,
-    hyperRate: obj.day + obj.time,
+    hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.SB.in * 0.01 * obj.SB.left,
     greenCycleLength: obj.lal
   };
   requestBody.SBright = {
     carsPerSec: obj.cpc,
-    hyperRate: obj.day + obj.time,
+    hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.SB.in * 0.01 * obj.SB.right,
     greenCycleLength: obj.gcl
   };
@@ -287,58 +307,58 @@ function retrieveEastWestCylce(obj) {
   };
 
   //build west bound inputs
-  if (obj.blockageValue == "WB") {
+  if (obj.blockage == "WB") {
     requestBody.WBstraight = {
-      carsPerSec: obj.cpc + obj.blockageValue,
-      hyperRate: obj.day + obj.time,
+      carsPerSec: obj.cpc - 1 - obj.weather,
+      hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.WB.in * 0.01 * obj.WB.straight,
       greenCycleLength: obj.gcl
     };
   } else {
     requestBody.WBstraight = {
       carsPerSec: obj.cpc - obj.weather,
-      hyperRate: obj.day + obj.time,
+      hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.WB.in * 0.01 * obj.WB.straight,
       greenCycleLength: obj.gcl
     };
   }
   requestBody.WBleft = {
     carsPerSec: obj.cpc - obj.weather,
-    hyperRate: obj.day + obj.time,
+    hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.WB.in * 0.01 * obj.WB.left,
     greenCycleLength: obj.lal
   };
   requestBody.WBright = {
     carsPerSec: obj.cpc - obj.weather,
-    hyperRate: obj.day + obj.time,
+    hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.WB.in * 0.01 * obj.WB.right,
     greenCycleLength: obj.gcl
   };
   //build east bound inputs
-  if (obj.blockageValue == "EB") {
+  if (obj.blockage == "EB") {
     requestBody.EBstraight = {
-      carsPerSec: obj.cpc + obj.blockageValue,
-      hyperRate: obj.day + obj.time,
+      carsPerSec: obj.cpc - 0.3 - obj.weather,
+      hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.EB.in * 0.01 * obj.EB.straight,
       greenCycleLength: obj.gcl
     };
   } else {
     requestBody.EBstraight = {
       carsPerSec: obj.cpc - obj.weather,
-      hyperRate: obj.day + obj.time,
+      hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.EB.in * 0.01 * obj.EB.straight,
       greenCycleLength: obj.gcl
     };
   }
   requestBody.EBleft = {
     carsPerSec: obj.cpc - obj.weather,
-    hyperRate: obj.day + obj.time,
+    hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.EB.in * 0.01 * obj.EB.left,
     greenCycleLength: obj.lal
   };
   requestBody.EBright = {
     carsPerSec: obj.cpc - obj.weather,
-    hyperRate: obj.day + obj.time,
+    hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.WB.in * 0.01 * obj.EB.right,
     greenCycleLength: obj.gcl
   };
