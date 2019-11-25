@@ -6,12 +6,12 @@ EB_OUT = 0;
 EB_IN = 0;
 WB_OUT = 0;
 WB_IN = 0;
+IN_TOTAL = 0;
 window.onload = function() {
   this.draw();
 };
 function northBoundIn(value) {
   if (!isNaN(value)) {
-    console.log("should value");
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(350, 610, 50, 17);
@@ -21,7 +21,6 @@ function northBoundIn(value) {
     ctx.fillText(value, 350, 620); //n in
     ctx.fillStyle = "#050505";
   } else {
-    console.log("from dom values");
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(350, 610, 50, 17);
@@ -37,7 +36,7 @@ function southBoundIn(value) {
     if (value > 0) {
       ctx.fillStyle = "#FF0000";
     }
-    ctx.fillText(value + SB_IN, 270, 50); //s in
+    ctx.fillText(value, 270, 50); //s in
     ctx.fillStyle = "#050505";
   } else {
     var c = document.getElementById("intersectionCanvas");
@@ -55,7 +54,7 @@ function eastBoundIn(value) {
     if (value > 0) {
       ctx.fillStyle = "#FF0000";
     }
-    ctx.fillText(value + EB_IN, 25, 380); //e in
+    ctx.fillText(value, 25, 380); //e in
     ctx.fillStyle = "#050505";
   } else {
     var c = document.getElementById("intersectionCanvas");
@@ -73,7 +72,7 @@ function westBoundIn(value) {
     if (value > 0) {
       ctx.fillStyle = "#FF0000";
     }
-    ctx.fillText(value + WB_IN, 600, 300); //w in
+    ctx.fillText(value, 600, 300); //w in
     ctx.fillStyle = "#050505";
   } else {
     var c = document.getElementById("intersectionCanvas");
@@ -182,7 +181,7 @@ function collectAllinputs() {
   let SB_in = document.getElementById("south-in").value;
   let SB_l = document.getElementById("south-left").value;
   let SB_s = document.getElementById("south-straight").value;
-  let SB_r = document.getElementById("north-right").value;
+  let SB_r = document.getElementById("south-right").value;
 
   let EB_in = document.getElementById("east-in").value;
   let EB_l = document.getElementById("east-left").value;
@@ -198,6 +197,9 @@ function collectAllinputs() {
   let gcl = document.getElementById("gcl").value;
   let lal = document.getElementById("lt_len").value;
 
+  IN_TOTAL =
+    parseInt(WB_in) + parseInt(EB_in) + parseInt(NB_in) + parseInt(SB_in);
+  console.log("TOTAL:::: " + IN_TOTAL);
   modelInputObj = {
     weather: weatherValue,
     day: dayValue,
@@ -400,20 +402,6 @@ function retrieveEastWestCylce(obj) {
 
 function populateOutPuts(obj) {
   if (obj.cycle === "N_S") {
-    northBoundOut(obj.straight_A.carsThrough);
-    southBoundOut(obj.straight_B.carsThrough);
-    eastBoundOut(obj.right_B.carsThrough + obj.left_A.carsThrough);
-    westBoundOut(obj.right_A.carsThrough + obj.left_B.carsThrough);
-    northBoundIn(
-      obj.straight_A.carsStopped +
-        obj.left_A.carsStopped +
-        obj.right_A.carsStopped
-    );
-    southBoundIn(
-      obj.straight_B.carsStopped +
-        obj.left_B.carsStopped +
-        obj.right_B.carsStopped
-    );
     NB_OUT = obj.straight_A.carsThrough;
     EB_OUT = obj.right_B.carsThrough + obj.left_A.carsThrough;
     SB_OUT = obj.straight_B.carsThrough;
@@ -421,32 +409,39 @@ function populateOutPuts(obj) {
     NB_IN =
       obj.straight_A.carsStopped +
       obj.left_A.carsStopped +
-      obj.right_B.carsStopped;
+      obj.right_A.carsStopped;
     SB_IN =
       obj.straight_B.carsStopped +
       obj.left_B.carsStopped +
       obj.right_B.carsStopped;
+    northBoundOut(NB_OUT);
+    southBoundOut(SB_OUT);
+    eastBoundOut(EB_OUT);
+    westBoundOut(WB_OUT);
+    northBoundIn(NB_IN);
+    southBoundIn(SB_IN);
   }
   if (obj.cycle == "E_W") {
-    westBoundOut(obj.straight_B.carsThrough + WB_OUT);
-    southBoundOut(obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT);
-    eastBoundOut(obj.straight_A.carsThrough + EB_OUT);
-    northBoundOut(obj.right_A.carsThrough + obj.left_B.carsThrough + NB_OUT);
-    westBoundIn(
-      obj.straight_A.carsStopped +
-        obj.left_A.carsStopped +
-        obj.right_A.carsStopped +
-        WB_IN
-    );
-    eastBoundIn(
-      obj.straight_B.carsStopped +
-        obj.left_B.carsStopped +
-        obj.right_B.carsStopped +
-        EB_IN
-    );
+    // westBoundOut(obj.straight_B.carsThrough + WB_OUT);
+    // southBoundOut(obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT);
+    // eastBoundOut(obj.straight_A.carsThrough + EB_OUT);
+    // northBoundOut(obj.right_A.carsThrough + obj.left_B.carsThrough + NB_OUT);
+    // westBoundIn(
+    //   obj.straight_A.carsStopped +
+    //     obj.left_A.carsStopped +
+    //     obj.right_A.carsStopped +
+    //     WB_IN
+    // );
+    // eastBoundIn(
+    //   obj.straight_B.carsStopped +
+    //     obj.left_B.carsStopped +
+    //     obj.right_B.carsStopped +
+    //     EB_IN
+    // );
     NB_OUT = obj.right_A.carsThrough + obj.left_B.carsThrough + NB_OUT;
     EB_OUT = obj.straight_A.carsThrough + EB_OUT;
-    WB_OUT = SB_OUT = obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT;
+    SB_OUT = obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT;
+    WB_OUT = obj.straight_B.carsThrough + WB_OUT;
     WB_IN =
       obj.straight_A.carsStopped +
       obj.left_A.carsStopped +
@@ -457,15 +452,22 @@ function populateOutPuts(obj) {
       obj.left_B.carsStopped +
       obj.right_B.carsStopped +
       EB_IN;
+    westBoundOut(WB_OUT);
+    southBoundOut(SB_OUT);
+    eastBoundOut(EB_OUT);
+    northBoundOut(NB_OUT);
+    westBoundIn(WB_IN);
+    eastBoundIn(EB_IN);
 
+    let totalOut = NB_OUT + SB_OUT + EB_OUT + WB_OUT;
+    let totalIn = NB_IN + SB_IN + EB_IN + WB_IN;
     document.getElementById("form").remove();
     document.getElementById("tables").style.visibility = "visible";
-    document.getElementById("summary-out").innerHTML =
-      NB_OUT + SB_OUT + EB_OUT + WB_OUT;
-    document.getElementById("summary-left").innerHTML =
-      NB_IN + SB_IN + EB_IN + WB_IN;
-    document.getElementById("summary-jam").innerHTML =
-      NB_IN + SB_IN + EB_IN + WB_IN > 0;
+    document.getElementById("summary-out").innerHTML = totalOut;
+    document.getElementById("summary-left").innerHTML = totalIn;
+    document.getElementById("summary-jam").innerHTML = totalIn > 0;
+    document.getElementById("error").innerHTML =
+      IN_TOTAL - (totalOut + totalIn);
   }
 }
 async function fetchData(obj) {
