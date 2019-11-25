@@ -22,7 +22,8 @@ This Traffic Simulator displays the Red Green Cycle for a single intersection gi
         ```
 
 - Once the server is active, open a browser to the address “localhost:3000/home.html” to access the webpage.
-From there the user may interact as they wish with the different conditions and input fields to determine specific traffic simulation solutions, as explained in the user model document.
+From there the user may interact as they wish with the different conditions and input fields to determine specific traffic simulation solutions, as explained in the user model section.
+See [UserModel.md](https://github.com/GauravDeshpande/415Deliverable3/blob/FrontEnd/UserModel.md)
 
 #### Notes:
 - Percentages must equal 100 for any given direction
