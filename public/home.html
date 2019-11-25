@@ -83,27 +83,19 @@
                   id="north-in"
                   placeholder="Vehicle Amount"
                   oninput="northBoundIn()"
-                  value="100"
                 />
                 <input
                   type="text"
                   id="north-straight"
                   placeholder="% bear straight"
-                  value="80"
                 />
               </div>
               <div class="col">
-                <input
-                  type="text"
-                  id="north-left"
-                  value="10"
-                  placeholder="% left turns"
-                />
+                <input type="text" id="north-left" placeholder="% left turns" />
                 <input
                   type="text"
                   id="north-right"
                   placeholder="% right turns"
-                  value="10"
                 />
               </div>
             </div>
@@ -116,27 +108,19 @@
                   id="south-in"
                   placeholder="Vehicle Amount"
                   oninput="southBoundIn()"
-                  value="100"
                 />
                 <input
                   type="text"
                   id="south-straight"
                   placeholder="% bear straight"
-                  value="80"
                 />
               </div>
               <div class="col">
-                <input
-                  type="text"
-                  id="south-left"
-                  value="10"
-                  placeholder="% left turns"
-                />
+                <input type="text" id="south-left" placeholder="% left turns" />
                 <input
                   type="text"
                   id="south-right"
                   placeholder="% right turns"
-                  value="10"
                 />
               </div>
             </div>
@@ -149,27 +133,19 @@
                   id="east-in"
                   placeholder="Vehicle Amount"
                   oninput="eastBoundIn()"
-                  value="100"
                 />
                 <input
                   type="text"
                   id="east-straight"
                   placeholder="% bear straight"
-                  value="80"
                 />
               </div>
               <div class="col">
-                <input
-                  type="text"
-                  id="east-left"
-                  placeholder="% left turns"
-                  value="10"
-                />
+                <input type="text" id="east-left" placeholder="% left turns" />
                 <input
                   type="text"
                   id="east-right"
                   placeholder="% right turns"
-                  value="10"
                 />
               </div>
             </div>
@@ -182,54 +158,35 @@
                   id="west-in"
                   placeholder="Vehicle Amount"
                   oninput="westBoundIn()"
-                  value="100"
                 />
                 <input
                   type="text"
                   id="west-straight"
                   placeholder="% bear straight"
-                  value="80"
                 />
               </div>
               <div class="col">
-                <input
-                  type="text"
-                  id="west-left"
-                  placeholder="% left turns"
-                  value="10"
-                />
+                <input type="text" id="west-left" placeholder="% left turns" />
                 <input
                   type="text"
                   id="west-right"
                   placeholder="% right turns"
-                  value="10"
                 />
               </div>
             </div>
             <hr />
-            <p>Simulator Values</p>
+            <p>Cycle Values</p>
             <div class="row">
               <div class="col">
-                <input
-                  type="text"
-                  id="cpc"
-                  value="5"
-                  placeholder="Cars Per Sec"
-                />
+                <input type="text" id="cpc" placeholder="Cars Per Sec" />
                 <input
                   type="text"
                   id="lt_len"
                   placeholder="Left Turn Arrow In Sec"
-                  value="10"
                 />
               </div>
               <div class="col">
-                <input
-                  type="text"
-                  id="gcl"
-                  value="20"
-                  placeholder="Green Cycle In Sec"
-                />
+                <input type="text" id="gcl" placeholder="Green Cycle In Sec" />
               </div>
             </div>
             <hr />
@@ -237,6 +194,26 @@
               <button onclick="collectAllinputs()">Run Simulation</button>
             </div>
           </div>
+        </div>
+        <div id="tables" style="visibility:hidden;">
+          <table class="table" id="N-S-table">
+            <h3>Summary</h3>
+            <thead>
+              <tr>
+                <th scope="col">Cars Out</th>
+                <th scope="col">Cars Left</th>
+                <th scope="col">Traffic Jam</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="summary-out"></td>
+                <td id="summary-left"></td>
+                <td id="summary-jam"></td>
+              </tr>
+            </tbody>
+          </table>
+          <button onclick="window.location.reload();">New Simulation</button>
         </div>
       </div>
     </div>

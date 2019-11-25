@@ -255,6 +255,7 @@ function retrieveNorthSouthCylce(obj) {
     carInputAmount: obj.NB.in * 0.01 * obj.NB.right,
     greenCycleLength: obj.gcl
   };
+
   //build south bound inputs
   if (obj.blockage == "SB") {
     requestBody.SBstraight = {
@@ -277,12 +278,14 @@ function retrieveNorthSouthCylce(obj) {
     carInputAmount: obj.SB.in * 0.01 * obj.SB.left,
     greenCycleLength: obj.lal
   };
+
   requestBody.SBright = {
-    carsPerSec: obj.cpc,
+    carsPerSec: obj.cpc - obj.weather,
     hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.SB.in * 0.01 * obj.SB.right,
     greenCycleLength: obj.gcl
   };
+
   fetchData(requestBody)
     .then(function(res) {
       console.log(res);
@@ -337,7 +340,7 @@ function retrieveEastWestCylce(obj) {
   //build east bound inputs
   if (obj.blockage == "EB") {
     requestBody.EBstraight = {
-      carsPerSec: obj.cpc - 0.3 - obj.weather,
+      carsPerSec: obj.cpc - 1 - obj.weather,
       hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.EB.in * 0.01 * obj.EB.straight,
       greenCycleLength: obj.gcl
@@ -359,7 +362,7 @@ function retrieveEastWestCylce(obj) {
   requestBody.EBright = {
     carsPerSec: obj.cpc - obj.weather,
     hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
-    carInputAmount: obj.WB.in * 0.01 * obj.EB.right,
+    carInputAmount: obj.EB.in * 0.01 * obj.EB.right,
     greenCycleLength: obj.gcl
   };
   fetchData(requestBody)
@@ -402,13 +405,11 @@ function populateOutPuts(obj) {
       obj.straight_B.carsStopped +
       obj.left_B.carsStopped +
       obj.right_B.carsStopped;
-    console.log(NB_OUT + " " + SB_OUT + " " + WB_OUT + " " + EB_OUT);
-    console.log(NB_IN + " " + SB_IN);
   }
   if (obj.cycle == "E_W") {
-    westBoundOut(obj.straight_A.carsThrough + WB_OUT);
+    westBoundOut(obj.straight_B.carsThrough + WB_OUT);
     southBoundOut(obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT);
-    eastBoundOut(obj.straight_B.carsThrough + EB_OUT);
+    eastBoundOut(obj.straight_A.carsThrough + EB_OUT);
     northBoundOut(obj.right_A.carsThrough + obj.left_B.carsThrough + NB_OUT);
     westBoundIn(
       obj.straight_A.carsStopped +
@@ -422,7 +423,28 @@ function populateOutPuts(obj) {
         obj.right_B.carsStopped +
         EB_IN
     );
-    // document.getElementById("form").remove();
+    NB_OUT = obj.right_A.carsThrough + obj.left_B.carsThrough + NB_OUT;
+    EB_OUT = obj.straight_A.carsThrough + EB_OUT;
+    WB_OUT = SB_OUT = obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT;
+    WB_IN =
+      obj.straight_A.carsStopped +
+      obj.left_A.carsStopped +
+      obj.right_A.carsStopped +
+      WB_IN;
+    EB_IN =
+      obj.straight_B.carsStopped +
+      obj.left_B.carsStopped +
+      obj.right_B.carsStopped +
+      EB_IN;
+
+    document.getElementById("form").remove();
+    document.getElementById("tables").style.visibility = "visible";
+    document.getElementById("summary-out").innerHTML =
+      NB_OUT + SB_OUT + EB_OUT + WB_OUT;
+    document.getElementById("summary-left").innerHTML =
+      NB_IN + SB_IN + EB_IN + WB_IN;
+    document.getElementById("summary-jam").innerHTML =
+      NB_IN + SB_IN + EB_IN + WB_IN > 0;
   }
 }
 async function fetchData(obj) {

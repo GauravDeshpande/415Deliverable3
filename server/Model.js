@@ -5,10 +5,8 @@ function simulatorEngine(data) {
   let c_p_s = data.carsPerSec;
   if (c_p_s <= 0) {
     c_p_s = 1;
-    console.log("here");
   }
   let h_r = baseHyperRate - data.hyperRate;
-  console.log(h_r);
   let g_c_l = data.greenCycleLength;
   let totalOutput = c_p_s * (1 / h_r) * Math.log(cosh(h_r * g_c_l));
   //build model output
