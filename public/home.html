@@ -75,147 +75,191 @@
         </div>
         <div class="col" id="form-column">
           <div id="form">
-            <p>North Bound Input Fields</p>
+            <p>North Bound & South Bound (state 1 & 2)</p>
             <div class="row">
+              <div class="col">
+                <label for="north-in">Vehicles</label><br />
+                <label for="north-straight">straight</label><b></b>
+                <label for="north-left">left</label><br />
+                <label for="north-right">right</label><br />
+              </div>
               <div class="col">
                 <input
                   type="text"
                   id="north-in"
-                  placeholder="Vehicle Amount"
                   oninput="northBoundIn()"
+                  style="width:50px"
                 />
                 <input
                   type="text"
                   id="north-straight"
-                  placeholder="% bear straight"
+                  placeholder="%"
+                  style="width:50px"
                 />
-              </div>
-              <div class="col">
-                <input type="text" id="north-left" placeholder="% left turns" />
+                <input
+                  type="text"
+                  id="north-left"
+                  style="width:50px"
+                  placeholder="%"
+                />
                 <input
                   type="text"
                   id="north-right"
-                  placeholder="% right turns"
+                  placeholder="%"
+                  style="width:50px"
                 />
               </div>
-            </div>
-            <hr />
-            <p>South Bound Input Fields</p>
-            <div class="row">
+              <div class="col">
+                <label for="south-in">Vehicles</label><br />
+                <label for="south-straight">straight</label><br />
+                <label for="south-left">left</label><br />
+                <label for="south-right">right</label>
+              </div>
               <div class="col">
                 <input
                   type="text"
                   id="south-in"
-                  placeholder="Vehicle Amount"
                   oninput="southBoundIn()"
+                  style="width:50px"
                 />
                 <input
                   type="text"
                   id="south-straight"
-                  placeholder="% bear straight"
+                  placeholder="%"
+                  style="width:50px"
                 />
-              </div>
-              <div class="col">
-                <input type="text" id="south-left" placeholder="% left turns" />
+                <input
+                  type="text"
+                  id="south-left"
+                  style="width:50px"
+                  placeholder="%"
+                />
                 <input
                   type="text"
                   id="south-right"
-                  placeholder="% right turns"
+                  placeholder="%"
+                  style="width:50px"
                 />
               </div>
             </div>
-            <hr />
-            <p>East Bound Input Fields</p>
             <div class="row">
               <div class="col">
-                <input
-                  type="text"
-                  id="east-in"
-                  placeholder="Vehicle Amount"
-                  oninput="eastBoundIn()"
-                />
-                <input
-                  type="text"
-                  id="east-straight"
-                  placeholder="% bear straight"
-                />
+                  <label for="cpc">Cars Per Sec</label><br />
+                  <label for="lt-len">Left Turn Arrow In Sec</label><br />
+                  <label for="gcl">Green Light In Sec</label><br />
               </div>
               <div class="col">
-                <input type="text" id="east-left" placeholder="% left turns" />
-                <input
-                  type="text"
-                  id="east-right"
-                  placeholder="% right turns"
-                />
-              </div>
-            </div>
-            <hr />
-            <p>West Bound Input Fields</p>
-            <div class="row">
-              <div class="col">
-                <input
-                  type="text"
-                  id="west-in"
-                  placeholder="Vehicle Amount"
-                  oninput="westBoundIn()"
-                />
-                <input
-                  type="text"
-                  id="west-straight"
-                  placeholder="% bear straight"
-                />
-              </div>
-              <div class="col">
-                <input type="text" id="west-left" placeholder="% left turns" />
-                <input
-                  type="text"
-                  id="west-right"
-                  placeholder="% right turns"
-                />
-              </div>
-            </div>
-            <hr />
-            <p>Cycle Values</p>
-            <div class="row">
-              <div class="col">
-                <input type="text" id="cpc" placeholder="Cars Per Sec" />
-                <input
-                  type="text"
-                  id="lt_len"
-                  placeholder="Left Turn Arrow In Sec"
-                />
-              </div>
-              <div class="col">
+                  <input type="text" id="cpc" placeholder="Cars Per Sec" />
+                  <input
+                    type="text"
+                    id="lt_len"
+                    placeholder="Left Turn Arrow In Sec"
+                  />
                 <input type="text" id="gcl" placeholder="Green Cycle In Sec" />
               </div>
             </div>
             <hr />
+            <p>East Bound & West Bound (State 3 & 4)</p>
             <div class="row">
-              <button onclick="collectAllinputs()">Run Simulation</button>
+              <div class="col">
+                  <label for="east-in">Vehicles</label><br />
+                  <label for="east-straight">straight</label><br />
+                  <label for="east-left">left</label><br />
+                  <label for="east-right">right</label>
+              </div>
+              <div class="col">
+                  <input
+                  type="text"
+                  id="east-in"
+                  oninput="eastBoundIn()"
+                  style="width:50px"
+                />
+                <input
+                  type="text"
+                  id="east-straight"
+                  placeholder="%"
+                  style="width:50px"
+                />
+                <input type="text" id="east-left"  style="width:50px" placeholder="%" />
+                <input
+                  type="text"
+                  id="east-right"
+                  placeholder="%"
+                  style="width:50px"
+                />
+              </div>
+              <div class="col">
+                  <label for="west-in">Vehicles</label><br />
+                  <label for="west-straight">straight</label><br />
+                  <label for="west-left">left</label><br />
+                  <label for="west-right">right</label>
+                </div>
+                <div class="col">
+                    <input
+                    type="text"
+                    id="west-in"
+                    oninput="westBoundIn()"
+                    style="width:50px"
+                  />
+                  <input
+                    type="text"
+                    id="west-straight"
+                    placeholder="%"
+                    style="width:50px"
+                  />
+                  <input type="text" id="west-left"  style="width:50px" placeholder="%" />
+                  <input
+                    type="text"
+                    id="west-right"
+                    placeholder="%"
+                    style="width:50px"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                  <div class="col">
+                      <label for="cpc-2">Cars Per Sec</label><br />
+                      <label for="lt-len-2">Left Turn Arrow In Sec</label><br />
+                      <label for="gcl-2">Green Light In Sec</label><br />
+                  </div>
+                  <div class="col">
+                      <input type="text" id="cpc-2" placeholder="Cars Per Sec" />
+                      <input
+                        type="text"
+                        id="lt_len-2"
+                        placeholder="Left Turn Arrow In Sec"
+                      />
+                    <input type="text" id="gcl-2" placeholder="Green Cycle In Sec" />
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <button onclick="collectAllinputs()">Run Simulation</button>
+                  </div>
             </div>
+            <div id="tables" style="visibility:hidden;">
+                <table class="table" id="N-S-table">
+                  <h3>Summary</h3>
+                  <thead>
+                    <tr>
+                      <th scope="col">Cars Out</th>
+                      <th scope="col">Cars Left</th>
+                      <th scope="col">Traffic Jam</th>
+                      <th scope="col">~error</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td id="summary-out"></td>
+                      <td id="summary-left"></td>
+                      <td id="summary-jam"></td>
+                      <td id="error"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button onclick="window.location.reload();">New Simulation</button>
+              </div>
           </div>
-        </div>
-        <div id="tables" style="visibility:hidden;">
-          <table class="table" id="N-S-table">
-            <h3>Summary</h3>
-            <thead>
-              <tr>
-                <th scope="col">Cars Out</th>
-                <th scope="col">Cars Left</th>
-                <th scope="col">Traffic Jam</th>
-                <th scope="col">~error</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td id="summary-out"></td>
-                <td id="summary-left"></td>
-                <td id="summary-jam"></td>
-                <td id="error"></td>
-              </tr>
-            </tbody>
-          </table>
-          <button onclick="window.location.reload();">New Simulation</button>
         </div>
       </div>
     </div>

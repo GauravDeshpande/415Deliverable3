@@ -196,6 +196,9 @@ function collectAllinputs() {
   let cpc = document.getElementById("cpc").value;
   let gcl = document.getElementById("gcl").value;
   let lal = document.getElementById("lt_len").value;
+  let cpc2 = document.getElementById("cpc-2").value;
+  let gcl2 = document.getElementById("gcl-2").value;
+  let lal2 = document.getElementById("lt_len-2").value;
 
   IN_TOTAL =
     parseInt(WB_in) + parseInt(EB_in) + parseInt(NB_in) + parseInt(SB_in);
@@ -211,7 +214,10 @@ function collectAllinputs() {
     WB: { in: WB_in, straight: WB_s, left: WB_l, right: WB_r },
     cpc: cpc,
     gcl: gcl,
-    lal: lal
+    lal: lal,
+    cpc2: cpc2,
+    gcl2: gcl2,
+    lal2: lal2
   };
   // console.log(modelInputObj);
   // retrieveNorthSouthCylce(modelInputObj);
@@ -335,58 +341,58 @@ function retrieveEastWestCylce(obj) {
   //build west bound inputs
   if (obj.blockage == "WB") {
     requestBody.WBstraight = {
-      carsPerSec: obj.cpc - 1 - obj.weather,
+      carsPerSec: obj.cpc2 - 1 - obj.weather,
       hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.WB.in * 0.01 * obj.WB.straight,
-      greenCycleLength: obj.gcl
+      greenCycleLength: obj.gcl2
     };
   } else {
     requestBody.WBstraight = {
-      carsPerSec: obj.cpc - obj.weather,
+      carsPerSec: obj.cpc2 - obj.weather,
       hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.WB.in * 0.01 * obj.WB.straight,
-      greenCycleLength: obj.gcl
+      greenCycleLength: obj.gcl2
     };
   }
   requestBody.WBleft = {
-    carsPerSec: obj.cpc - obj.weather,
+    carsPerSec: obj.cpc2 - obj.weather,
     hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.WB.in * 0.01 * obj.WB.left,
-    greenCycleLength: obj.lal
+    greenCycleLength: obj.lal2
   };
   requestBody.WBright = {
-    carsPerSec: obj.cpc - obj.weather,
+    carsPerSec: obj.cpc2 - obj.weather,
     hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.WB.in * 0.01 * obj.WB.right,
-    greenCycleLength: obj.gcl
+    greenCycleLength: obj.gcl2
   };
   //build east bound inputs
   if (obj.blockage == "EB") {
     requestBody.EBstraight = {
-      carsPerSec: obj.cpc - 1 - obj.weather,
+      carsPerSec: obj.cpc2 - 1 - obj.weather,
       hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.EB.in * 0.01 * obj.EB.straight,
-      greenCycleLength: obj.gcl
+      greenCycleLength: obj.gcl2
     };
   } else {
     requestBody.EBstraight = {
-      carsPerSec: obj.cpc - obj.weather,
+      carsPerSec: obj.cpc2 - obj.weather,
       hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
       carInputAmount: obj.EB.in * 0.01 * obj.EB.straight,
-      greenCycleLength: obj.gcl
+      greenCycleLength: obj.gcl2
     };
   }
   requestBody.EBleft = {
-    carsPerSec: obj.cpc - obj.weather,
+    carsPerSec: obj.cpc2 - obj.weather,
     hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.EB.in * 0.01 * obj.EB.left,
-    greenCycleLength: obj.lal
+    greenCycleLength: obj.lal2
   };
   requestBody.EBright = {
-    carsPerSec: obj.cpc - obj.weather,
+    carsPerSec: obj.cpc2 - obj.weather,
     hyperRate: parseFloat(obj.day) + parseFloat(obj.time),
     carInputAmount: obj.EB.in * 0.01 * obj.EB.right,
-    greenCycleLength: obj.gcl
+    greenCycleLength: obj.gcl2
   };
   fetchData(requestBody)
     .then(function(res) {
