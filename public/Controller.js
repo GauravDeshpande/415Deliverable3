@@ -7,16 +7,19 @@ EB_IN = 0;
 WB_OUT = 0;
 WB_IN = 0;
 IN_TOTAL = 0;
+CYCLE_TOTAL = 0;
 window.onload = function() {
   this.draw();
 };
-function northBoundIn(value) {
+function northBoundIn(value, populateExample) {
   if (!isNaN(value)) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(350, 610, 50, 17);
-    if (value > 0) {
+    if (value > 0 && !populateExample) {
       ctx.fillStyle = "#FF0000";
+    } else {
+      ctx.fillStyle = "#050505";
     }
     ctx.fillText(value, 350, 620); //n in
     ctx.fillStyle = "#050505";
@@ -28,13 +31,15 @@ function northBoundIn(value) {
     ctx.fillText(x, 350, 620); //n in
   }
 }
-function southBoundIn(value) {
+function southBoundIn(value, populateExample) {
   if (!isNaN(value)) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(250, 40, 50, 12);
-    if (value > 0) {
+    if (value > 0 && !populateExample) {
       ctx.fillStyle = "#FF0000";
+    } else {
+      ctx.fillStyle = "#050505";
     }
     ctx.fillText(value, 270, 50); //s in
     ctx.fillStyle = "#050505";
@@ -46,13 +51,15 @@ function southBoundIn(value) {
     ctx.fillText(x, 270, 50); //s in
   }
 }
-function eastBoundIn(value) {
+function eastBoundIn(value, populateExample) {
   if (!isNaN(value)) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(25, 350, 17, 50);
-    if (value > 0) {
+    if (value > 0 && !populateExample) {
       ctx.fillStyle = "#FF0000";
+    } else {
+      ctx.fillStyle = "#050505";
     }
     ctx.fillText(value, 25, 380); //e in
     ctx.fillStyle = "#050505";
@@ -64,13 +71,15 @@ function eastBoundIn(value) {
     ctx.fillText(x, 25, 380); //e in
   }
 }
-function westBoundIn(value) {
+function westBoundIn(value, populateExample) {
   if (!isNaN(value)) {
     var c = document.getElementById("intersectionCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(600, 275, 20, 50);
-    if (value > 0) {
+    if (value > 0 && !populateExample) {
       ctx.fillStyle = "#FF0000";
+    } else {
+      ctx.fillStyle = "#050505";
     }
     ctx.fillText(value, 600, 300); //w in
     ctx.fillStyle = "#050505";
@@ -203,6 +212,12 @@ function collectAllinputs() {
   IN_TOTAL =
     parseInt(WB_in) + parseInt(EB_in) + parseInt(NB_in) + parseInt(SB_in);
   console.log("TOTAL:::: " + IN_TOTAL);
+  CYCLE_TOTAL = parseInt(gcl) + parseInt(gcl2) + parseInt(lal) + parseInt(lal2);
+  if (!IN_TOTAL) {
+    alert("no vehicle inputs found");
+    return;
+  }
+
   modelInputObj = {
     weather: weatherValue,
     day: dayValue,
@@ -219,13 +234,9 @@ function collectAllinputs() {
     gcl2: gcl2,
     lal2: lal2
   };
-  // console.log(modelInputObj);
-  // retrieveNorthSouthCylce(modelInputObj);
-  // retrieveEastWestCylce(modelInputObj);
   document.getElementById("spinner").style.visibility = "visible";
   document.getElementById("cycle").style.visibility = "visible";
-  document.getElementById("cycle").innerHTML =
-    "simulating North/South Cycle for " + gcl + " seconds";
+  document.getElementById("cycle").innerHTML = "simulating state 1 & 2";
   setTimeout(function() {
     document.getElementById("spinner").style.visibility = "hidden";
     document.getElementById("cycle").innerHTML = "Some Text";
@@ -234,8 +245,7 @@ function collectAllinputs() {
 
     document.getElementById("spinner").style.visibility = "visible";
     document.getElementById("cycle").style.visibility = "visible";
-    document.getElementById("cycle").innerHTML =
-      "simulating East/West Cycle for " + gcl + " seconds";
+    document.getElementById("cycle").innerHTML = "simulating state 3 & 4 ";
     setTimeout(function() {
       document.getElementById("spinner").style.visibility = "hidden";
       document.getElementById("cycle").innerHTML = "Some Text";
@@ -428,22 +438,6 @@ function populateOutPuts(obj) {
     southBoundIn(SB_IN);
   }
   if (obj.cycle == "E_W") {
-    // westBoundOut(obj.straight_B.carsThrough + WB_OUT);
-    // southBoundOut(obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT);
-    // eastBoundOut(obj.straight_A.carsThrough + EB_OUT);
-    // northBoundOut(obj.right_A.carsThrough + obj.left_B.carsThrough + NB_OUT);
-    // westBoundIn(
-    //   obj.straight_A.carsStopped +
-    //     obj.left_A.carsStopped +
-    //     obj.right_A.carsStopped +
-    //     WB_IN
-    // );
-    // eastBoundIn(
-    //   obj.straight_B.carsStopped +
-    //     obj.left_B.carsStopped +
-    //     obj.right_B.carsStopped +
-    //     EB_IN
-    // );
     NB_OUT = obj.right_A.carsThrough + obj.left_B.carsThrough + NB_OUT;
     EB_OUT = obj.straight_A.carsThrough + EB_OUT;
     SB_OUT = obj.right_B.carsThrough + obj.left_A.carsThrough + SB_OUT;
@@ -467,13 +461,84 @@ function populateOutPuts(obj) {
 
     let totalOut = NB_OUT + SB_OUT + EB_OUT + WB_OUT;
     let totalIn = NB_IN + SB_IN + EB_IN + WB_IN;
-    document.getElementById("form").remove();
+    // document.getElementById("form").remove();
+    document.getElementById("tables").style.display = "";
     document.getElementById("tables").style.visibility = "visible";
+    document
+      .getElementById("run-button")
+      .setAttribute("onclick", "window.location.reload();");
+    document.getElementById("run-button").innerHTML =
+      "Clear And Create New Simulation";
     document.getElementById("summary-out").innerHTML = totalOut;
     document.getElementById("summary-left").innerHTML = totalIn;
     document.getElementById("summary-jam").innerHTML = totalIn > 0;
-    document.getElementById("error").innerHTML =
-      IN_TOTAL - (totalOut + totalIn);
+    document.getElementById("cycle-length").innerHTML = CYCLE_TOTAL;
+    document.getElementById("error").innerHTML = totalOut + totalIn - IN_TOTAL;
+  }
+}
+function loadExample(number) {
+  if (number == 1) {
+    document.getElementById("north-in").value = 100;
+    northBoundIn(100, true);
+    document.getElementById("north-left").value = 10;
+    document.getElementById("north-straight").value = 80;
+    document.getElementById("north-right").value = 10;
+
+    document.getElementById("south-in").value = 80;
+    southBoundIn(80, true);
+    document.getElementById("south-left").value = 25;
+    document.getElementById("south-straight").value = 50;
+    document.getElementById("south-right").value = 25;
+
+    document.getElementById("east-in").value = 90;
+    eastBoundIn(90, true);
+    document.getElementById("east-left").value = 45;
+    document.getElementById("east-straight").value = 45;
+    document.getElementById("east-right").value = 10;
+
+    document.getElementById("west-in").value = 50;
+    westBoundIn(50, true);
+    document.getElementById("west-left").value = 10;
+    document.getElementById("west-straight").value = 60;
+    WB_r = document.getElementById("west-right").value = 30;
+
+    document.getElementById("cpc").value = 5;
+    document.getElementById("gcl").value = 20;
+    document.getElementById("lt_len").value = 10;
+    document.getElementById("cpc-2").value = 5;
+    document.getElementById("gcl-2").value = 25;
+    document.getElementById("lt_len-2").value = 12;
+  } else if (number == 2) {
+    document.getElementById("north-in").value = 95;
+    northBoundIn(95, true);
+    document.getElementById("north-left").value = 20;
+    document.getElementById("north-straight").value = 60;
+    document.getElementById("north-right").value = 20;
+
+    document.getElementById("south-in").value = 75;
+    southBoundIn(75, true);
+    document.getElementById("south-left").value = 25;
+    document.getElementById("south-straight").value = 55;
+    document.getElementById("south-right").value = 20;
+
+    document.getElementById("east-in").value = 110;
+    eastBoundIn(110, true);
+    document.getElementById("east-left").value = 50;
+    document.getElementById("east-straight").value = 40;
+    document.getElementById("east-right").value = 10;
+
+    document.getElementById("west-in").value = 60;
+    westBoundIn(60, true);
+    document.getElementById("west-left").value = 65;
+    document.getElementById("west-straight").value = 25;
+    WB_r = document.getElementById("west-right").value = 10;
+
+    document.getElementById("cpc").value = 4;
+    document.getElementById("gcl").value = 23;
+    document.getElementById("lt_len").value = 8;
+    document.getElementById("cpc-2").value = 3;
+    document.getElementById("gcl-2").value = 28;
+    document.getElementById("lt_len-2").value = 10;
   }
 }
 async function fetchData(obj) {
@@ -485,25 +550,3 @@ async function fetchData(obj) {
   var data = await response.json();
   return data;
 }
-
-// document.getElementById("spinner").style.visibility = "visible";
-// document.getElementById("cycle").style.visibility = "visible";
-// document.getElementById("cycle").innerHTML =
-//   "simulating North/South Cycle for " + gcl + " seconds";
-// setTimeout(function() {
-//   document.getElementById("spinner").style.visibility = "hidden";
-//   document.getElementById("cycle").innerHTML = "Some Text";
-//   document.getElementById("cycle").style.visibility = "hidden";
-//   retrieveNorthSouthCylce(modelInputObj);
-
-//   document.getElementById("spinner").style.visibility = "visible";
-//   document.getElementById("cycle").style.visibility = "visible";
-//   document.getElementById("cycle").innerHTML =
-//     "simulating East/West Cycle for " + gcl + " seconds";
-//   setTimeout(function() {
-//     document.getElementById("spinner").style.visibility = "hidden";
-//     document.getElementById("cycle").innerHTML = "Some Text";
-//     document.getElementById("cycle").style.visibility = "hidden";
-//     retrieveEastWestCylce(modelInputObj);
-//   }, 3000);
-// }, 3000);

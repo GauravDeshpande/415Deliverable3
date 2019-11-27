@@ -17,8 +17,8 @@
     <script src="Controller.js"></script>
   </head>
   <body>
+    <h3>4-Way Intersection Traffic Simulator</h3>
     <div class="container">
-      <h1>Traffic Simulator</h1>
       <div class="row">
         <div class="col">
           <h5>Weather</h5>
@@ -74,8 +74,12 @@
           </canvas>
         </div>
         <div class="col" id="form-column">
+            <button id="myBtn">Help</button>
+          <button onclick="loadExample(1)">Load Example 1</button>
+          <button onclick="loadExample(2)">Load Example 2</button>
+          <hr>
           <div id="form">
-            <p>North Bound & South Bound (state 1 & 2)</p>
+            <p>North Bound & South Bound (State 1 & 2)</p>
             <div class="row">
               <div class="col">
                 <label for="north-in">Vehicles</label><br />
@@ -234,34 +238,120 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <button onclick="collectAllinputs()">Run Simulation</button>
+                    <button id="run-button" onclick="collectAllinputs()">Run Simulation</button>
                   </div>
             </div>
-            <div id="tables" style="visibility:hidden;">
-                <table class="table" id="N-S-table">
-                  <h3>Summary</h3>
-                  <thead>
-                    <tr>
-                      <th scope="col">Cars Out</th>
-                      <th scope="col">Cars Left</th>
-                      <th scope="col">Traffic Jam</th>
-                      <th scope="col">~error</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td id="summary-out"></td>
-                      <td id="summary-left"></td>
-                      <td id="summary-jam"></td>
-                      <td id="error"></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <button onclick="window.location.reload();">New Simulation</button>
-              </div>
+
           </div>
+          <div id="tables" style="display:none;">
+              <table class="table" id="N-S-table">
+                <h3>Cycle Summary</h3>
+                <thead>
+                  <tr>
+                    <th scope="col">Vehicles Out</th>
+                    <th scope="col">Vehicles Left</th>
+                    <th scope="col">Weather</th>
+                    <th scope="col">Day Type</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Blockage</th>
+                    <th scope="col">Total Cycle Length</th>
+                    <th scope="col">Traffic Jam</th>
+                    <th scope="col">Error</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td id="summary-out"></td>
+                    <td id="summary-left"></td>
+                    <td id="weather-out"></td>
+                    <td id="day-out"></td>
+                    <td id="time-out"></td>
+                    <td id="blockage-out"></td>
+                    <td id="summary-jam"></td>
+                    <td id="cycle-length"></td>
+                    <td id="error"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><b>Vehicles Out:</b>  The amount of cars that made it though the intersection.  Look for black numbers on the intersection.</p>
+              <p><b>Vehicles Left:</b>  The amount of cars that did not make it through the intersection.  Look for red numbers on the intersection.</p>
+              <p><b>Traffic Jam:</b>True if <b>Vehicles Left</b> > 0.</p>
+              <p><b>Total Cycle Length:</b>The sum of the green light cycles for all directions. </p>
+              <p><b>Error:</b>The amount of cars lost in rounding.</p>
+            </div>
         </div>
       </div>
     </div>
+    <!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Welcome To the Help Page!</p>
+      <p>The simulator has 4 states and 2 cycles.  
+        Cycle 1 consists of computing traffic flow going North (state 1) and South (state 2).
+        <b>When you input Vehicle Amounts observe the intersection!</b>  The values will appear
+        from which direction they are coming from.
+      </p>
+      <p>
+        Cycle 2 consists of computing traffic flow going East (state 3) and West (state 4).  When you input 
+        Vehicle Amounts these values will also show up on the intersection.
+      </p>
+      <p><b>Feature Descriptions</b></p>
+      
+      <ul>
+          <li><b>Weather & Blockages:</b> Both will effect the Cars Per Sec input.  Blockages will only effect CPC for the direction in which they block.</li>
+          <li><b>Day Type & Time:</b>  Both will effect the acceleration of the vehicles.</li>
+    </ul>
+    <p><b>Input Descriptions</b></p>
+      <ul>
+        <li><b>Direction Percentages:</b> The percent of Vehicle Amounts going in the specified direction.  These should add up to 100.</li>
+        <li><b>Cars Per Sec:</b>  The speed at which vehicles pass through the intersection</li>
+        <li><b>Green Light In Sec:</b>  The length of the green light for vehicle going straight and turning right.</li>
+        <li><b>Left Turn Arrow In Sec:</b>  The length of the green arrow.  Green arrows only happen after the Green Light In Sec has completed.</li>
+      </ul>
+      <p><b>Output Descriptions</b></p>
+      <ul>
+        <li><b>Red Numbers:</b> Red numbers on the intersection represent vehicles that did not make it through.</li>
+        <li><b>Black Numbers:</b>  Black numbers one the intersection represent vehicles that did make it through.</li>
+      </ul>
+      <p><b>Don't forget to view the summary table!  It will show up below the intersection diagram.</b></p>
+      <button onclick="loadExample(1); closeModal()">I'm lazy, fill one out for me</button>
+    </div>
+   
+  
+  </div>
   </body>
+  <script>
+      // Get the modal
+      var modal = document.getElementById("myModal");
+      
+      // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+      console.log(btn.innerHTML);
+      
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+      
+      // When the user clicks the button, open the modal 
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+      
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+      
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+      function closeModal() {
+        modal.style.display = "none";
+      }
+      </script>
 </html>
