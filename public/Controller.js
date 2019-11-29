@@ -11,6 +11,7 @@ CYCLE_TOTAL = 0;
 window.onload = function() {
   this.draw();
 };
+//Action Listeners For UI/////////////
 function northBoundIn(value, populateExample) {
   if (!isNaN(value)) {
     var c = document.getElementById("intersectionCanvas");
@@ -165,6 +166,9 @@ function draw() {
   var img = document.getElementById("intersectionPic");
   ctx.drawImage(img, 0, 50);
 }
+//End Action Listeners for UI
+
+//Entry point For Running Simulatior
 function collectAllinputs() {
   //collect feature inputs
   let weatherSelect = document.getElementById("weather");
@@ -180,8 +184,7 @@ function collectAllinputs() {
   let timeValue =
     timeSelect.options[timeSelect.selectedIndex].attributes.modifier.value;
   let blockageValue = blockSelect.options[blockSelect.selectedIndex].value;
-  //collect field inputs
-
+  //collect  form field inputs
   let NB_in = document.getElementById("north-in").value;
   let NB_l = document.getElementById("north-left").value;
   let NB_s = document.getElementById("north-straight").value;
@@ -209,6 +212,7 @@ function collectAllinputs() {
   let gcl2 = document.getElementById("gcl-2").value;
   let lal2 = document.getElementById("lt_len-2").value;
 
+  //calculate totals before model
   IN_TOTAL =
     parseInt(WB_in) + parseInt(EB_in) + parseInt(NB_in) + parseInt(SB_in);
   console.log("TOTAL:::: " + IN_TOTAL);
@@ -218,6 +222,7 @@ function collectAllinputs() {
     return;
   }
 
+  //build obj parameter for cycle inputs
   modelInputObj = {
     weather: weatherValue,
     day: dayValue,
@@ -234,6 +239,7 @@ function collectAllinputs() {
     gcl2: gcl2,
     lal2: lal2
   };
+  //THIS IS THE SPINNER
   document.getElementById("spinner").style.visibility = "visible";
   document.getElementById("cycle").style.visibility = "visible";
   document.getElementById("cycle").innerHTML = "simulating state 1 & 2";
@@ -241,7 +247,7 @@ function collectAllinputs() {
     document.getElementById("spinner").style.visibility = "hidden";
     document.getElementById("cycle").innerHTML = "Some Text";
     document.getElementById("cycle").style.visibility = "hidden";
-    retrieveNorthSouthCylce(modelInputObj);
+    retrieveNorthSouthCylce(modelInputObj); //Calculate the North South Cycle
 
     document.getElementById("spinner").style.visibility = "visible";
     document.getElementById("cycle").style.visibility = "visible";
@@ -250,7 +256,7 @@ function collectAllinputs() {
       document.getElementById("spinner").style.visibility = "hidden";
       document.getElementById("cycle").innerHTML = "Some Text";
       document.getElementById("cycle").style.visibility = "hidden";
-      retrieveEastWestCylce(modelInputObj);
+      retrieveEastWestCylce(modelInputObj); //Calculate the East West Cycle
     }, 3000);
   }, 3000);
 }
@@ -415,7 +421,7 @@ function retrieveEastWestCylce(obj) {
       );
     });
 }
-
+//Display Results From Model on the Screen.
 function populateOutPuts(obj) {
   if (obj.cycle === "N_S") {
     NB_OUT = obj.straight_A.carsThrough;
@@ -461,7 +467,6 @@ function populateOutPuts(obj) {
 
     let totalOut = NB_OUT + SB_OUT + EB_OUT + WB_OUT;
     let totalIn = NB_IN + SB_IN + EB_IN + WB_IN;
-    // document.getElementById("form").remove();
     document.getElementById("tables").style.display = "";
     document.getElementById("tables").style.visibility = "visible";
     document
@@ -476,6 +481,7 @@ function populateOutPuts(obj) {
     document.getElementById("error").innerHTML = totalOut + totalIn - IN_TOTAL;
   }
 }
+//Loads Examples for the user
 function loadExample(number) {
   if (number == 1) {
     document.getElementById("north-in").value = 100;

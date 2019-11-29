@@ -47,10 +47,10 @@
           <h5>Blockage</h5>
           <select id="blockage" onchange="placeBlockage()">
             <option value="">None</option>
-            <option value="NB" modifier="0.3">NB out</option>
-            <option value="SB" modifier="0.3">SB out</option>
-            <option value="EB" modifier="0.3">EB out</option>
-            <option value="WB" modifier="0.3">WB out</option>
+            <option value="NB" modifier="1">NB out</option>
+            <option value="SB" modifier="1">SB out</option>
+            <option value="EB" modifier="1">EB out</option>
+            <option value="WB" modifier="1">WB out</option>
           </select>
         </div>
       </div>
@@ -245,15 +245,11 @@
           </div>
           <div id="tables" style="display:none;">
               <table class="table" id="N-S-table">
-                <h3>Cycle Summary</h3>
+                <h3>Summary</h3>
                 <thead>
                   <tr>
                     <th scope="col">Vehicles Out</th>
                     <th scope="col">Vehicles Left</th>
-                    <th scope="col">Weather</th>
-                    <th scope="col">Day Type</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Blockage</th>
                     <th scope="col">Total Cycle Length</th>
                     <th scope="col">Traffic Jam</th>
                     <th scope="col">Error</th>
@@ -263,12 +259,8 @@
                   <tr>
                     <td id="summary-out"></td>
                     <td id="summary-left"></td>
-                    <td id="weather-out"></td>
-                    <td id="day-out"></td>
-                    <td id="time-out"></td>
-                    <td id="blockage-out"></td>
-                    <td id="summary-jam"></td>
                     <td id="cycle-length"></td>
+                    <td id="summary-jam"></td>
                     <td id="error"></td>
                   </tr>
                 </tbody>
@@ -329,7 +321,6 @@
       
       // Get the button that opens the modal
       var btn = document.getElementById("myBtn");
-      console.log(btn.innerHTML);
       
       // Get the <span> element that closes the modal
       var span = document.getElementsByClassName("close")[0];

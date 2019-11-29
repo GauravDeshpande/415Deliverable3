@@ -30,4 +30,9 @@ app.post("/simulate", function(req, res) {
     });
   }
 });
+app.post("/sim", function(req, res) {
+  res.send({
+    data: Engine(req.body)
+  });
+});
 app.listen(port, () => console.log(`listening on port ${port}!`));
