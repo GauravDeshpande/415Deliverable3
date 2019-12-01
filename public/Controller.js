@@ -239,29 +239,31 @@ function collectAllinputs() {
     gcl2: gcl2,
     lal2: lal2
   };
-  //THIS IS THE SPINNER
+  //THIS IS THE LOAD SPINNER
   document.getElementById("spinner").style.visibility = "visible";
   document.getElementById("cycle").style.visibility = "visible";
-  document.getElementById("cycle").innerHTML = "simulating state 1 & 2";
+  document.getElementById("cycle").innerHTML =
+    "simulating North/South traffic flow (state 1)";
   setTimeout(function() {
     document.getElementById("spinner").style.visibility = "hidden";
     document.getElementById("cycle").innerHTML = "Some Text";
     document.getElementById("cycle").style.visibility = "hidden";
-    retrieveNorthSouthCylce(modelInputObj); //Calculate the North South Cycle
+    retrieveNorthSouthCycle(modelInputObj); //Calculate the North South State
 
     document.getElementById("spinner").style.visibility = "visible";
     document.getElementById("cycle").style.visibility = "visible";
-    document.getElementById("cycle").innerHTML = "simulating state 3 & 4 ";
+    document.getElementById("cycle").innerHTML =
+      "simulating East/West traffic flow (state 2)";
     setTimeout(function() {
       document.getElementById("spinner").style.visibility = "hidden";
       document.getElementById("cycle").innerHTML = "Some Text";
       document.getElementById("cycle").style.visibility = "hidden";
-      retrieveEastWestCylce(modelInputObj); //Calculate the East West Cycle
+      retrieveEastWestCycle(modelInputObj); //Calculate the East West State
     }, 3000);
   }, 3000);
 }
 
-function retrieveNorthSouthCylce(obj) {
+function retrieveNorthSouthCycle(obj) {
   //fetch request body to pass to server
   let requestBody = {
     cycle: "N_S",
@@ -342,7 +344,7 @@ function retrieveNorthSouthCylce(obj) {
       );
     });
 }
-function retrieveEastWestCylce(obj) {
+function retrieveEastWestCycle(obj) {
   //fetch request body to pass to server
   let requestBody = {
     cycle: "E_W",
@@ -547,6 +549,7 @@ function loadExample(number) {
     document.getElementById("lt_len-2").value = 10;
   }
 }
+//async fetch call to server
 async function fetchData(obj) {
   var response = await fetch("http://localhost:3000/simulate", {
     method: "POST",
